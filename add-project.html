@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة مشروع جديد | منصة الخير</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <a href="index.html">منصة الخير</a>
+            </div>
+            <ul>
+                <li><a href="index.html#about-platform">عن المنصة</a></li>
+                <li><a href="projects.html">المشاريع</a></li>
+                <li><a href="news.html">الأخبار</a></li>
+                <li><a href="team.html">الكادر المسؤول</a></li>
+                <li><a href="donors.html">شكر المتبرعين</a></li>
+                <li><a href="index.html#contact">اتصل بنا</a></li>
+                <li><a href="add-project.html">إضافة مشروع</a></li>
+            </ul>
+        <div class="page-hero">
+            <h1>إضافة مشروع خيري جديد</h1>
+            <p>املأ النموذج التالي لإضافة تفاصيل مشروع جديد إلى منصة الخير.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="add-project-section section-container">
+            <h2>تفاصيل المشروع</h2>
+            <form id="add-project-form">
+                <div class="form-group">
+                    <label for="project-title">عنوان المشروع:</label>
+                    <input type="text" id="project-title" name="projectTitle" required placeholder="مثال: مشروع رصف طريق الحي">
+                </div>
+
+                <div class="form-group">
+                    <label for="project-description">وصف المشروع:</label>
+                    <textarea id="project-description" name="projectDescription" rows="8" required placeholder="تفاصيل شاملة عن المشروع، أهدافه، وأثره المتوقع..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="project-category">فئة المشروع:</label>
+                    <select id="project-category" name="projectCategory" required>
+                        <option value="">اختر فئة</option>
+                        <option value="بناء وتعمير">بناء وتعمير</option>
+                        <option value="تعليم">تعليم</option>
+                        <option value="صحة">صحة</option>
+                        <option value="إغاثة">إغاثة</option>
+                        <option value="تمكين">تمكين</option>
+                        <option value="بنية تحتية">بنية تحتية</option>
+                        <option value="مياه">مياه</option>
+                        <option value="أخرى">أخرى</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="total-target-amount">المبلغ المستهدف (ريال):</label>
+                    <input type="number" id="total-target-amount" name="totalTargetAmount" required min="1000" placeholder="مثال: 500000">
+                </div>
+
+                <div class="form-group">
+                    <label for="start-date">تاريخ البدء:</label>
+                    <input type="date" id="start-date" name="startDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="end-date">تاريخ الانتهاء المتوقع:</label>
+                    <input type="date" id="end-date" name="endDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="project-image">صورة المشروع (رابط URL):</label>
+                    <input type="url" id="project-image" name="projectImage" placeholder="مثال: https://example.com/project-image.jpg">
+                </div>
+
+                <div class="form-group">
+                    <label for="project-video">رابط فيديو (اختياري):</label>
+                    <input type="url" id="project-video" name="projectVideo" placeholder="مثال: https://youtube.com/watch?v=xyz">
+                </div>
+
+                <button type="submit" class="button primary">إضافة المشروع</button>
+            </form>
+            <div id="form-message" class="hidden message"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="js/message-box.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addProjectForm = document.getElementById('add-project-form');
+            const formMessage = document.getElementById('form-message');
+
+            addProjectForm.addEventListener('submit', async function(event) {
+                event.preventDefault(); // منع الإرسال الافتراضي
+
+                // جمع بيانات النموذج
+                const projectData = {
+                    title: document.getElementById('project-title').value,
+                    description: document.getElementById('project-description').value,
+                    category: document.getElementById('project-category').value,
+                    totalTargetAmount: parseFloat(document.getElementById('total-target-amount').value),
+                    startDate: document.getElementById('start-date').value,
+                    endDate: document.getElementById('end-date').value,
+                    image: document.getElementById('project-image').value,
+                    video: document.getElementById('project-video').value,
+                    // بيانات افتراضية للمشروع الجديد
+                    currentAmount: 0,
+                    donorsCount: 0,
+                    status: 'قيد التمويل'
+                };
+
+                console.log('Project Data:', projectData);
+
+                try {
+                    // محاكاة إرسال البيانات
+                    // In a real application, you would send this data to your Node.js backend
+                    // const response = await fetch('/api/projects', {
+                    //     method: 'POST',
+                    //     headers: {
+                    //         'Content-Type': 'application/json'
+                    //     },
+                    //     body: JSON.stringify(projectData)
+                    // });
+                    // const result = await response.json();
+
+                    // if (response.ok) {
+                    //     showMessageBox('تم إضافة المشروع بنجاح!', 'success');
+                    //     addProjectForm.reset();
+                    // } else {
+                    //     showMessageBox(`فشل إضافة المشروع: ${result.error || 'حدث خطأ غير معروف.'}`, 'error');
+                    // }
+
+                    // Mock success message for frontend demonstration
+                    showMessageBox('تم إرسال بيانات المشروع بنجاح! (هذا مجرد محاكاة)', 'success');
+                    addProjectForm.reset(); // مسح النموذج بعد الإرسال
+
+                } catch (error) {
+                    console.error('Error submitting project:', error);
+                    showMessageBox('حدث خطأ في الاتصال، يرجى المحاولة لاحقاً.', 'error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

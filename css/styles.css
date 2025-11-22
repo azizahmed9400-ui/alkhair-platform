@@ -1,0 +1,382 @@
+/* =========================================
+   1. المتغيرات وإعدادات الصفحة العامة
+   ========================================= */
+:root {
+    --primary-color: #4CAF50; /* أخضر */
+    --secondary-color: #FF9800; /* برتقالي */
+    --text-color: #333;
+    --light-bg: #f9f9f9;
+    --border-color: #eee;
+    --primary-color-dark: #45a049;
+    --secondary-color-dark: #e68a00;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    direction: rtl;
+    text-align: right;
+    color: #333;
+}
+
+/* =========================================
+   2. الترويسة وشريط التنقل (Navigation)
+   ========================================= */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.main-nav .logo a {
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.main-nav .logo a:hover {
+    color: var(--secondary-color);
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.main-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+    color: var(--secondary-color);
+}
+
+/* تنسيق زر الهمبرغر (مخفي افتراضياً على الكمبيوتر) */
+.menu-toggle {
+    display: none; 
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: white; 
+    padding: 0;
+    z-index: 1001;
+}
+
+/* =========================================
+   3. Hero Section (الجزء العلوي البارز)
+   ========================================= */
+.hero, .page-hero {
+    padding: 80px 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.hero h1, .page-hero h1 {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+}
+
+.hero p, .page-hero p {
+    font-size: 1.3em;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    line-height: 1.6;
+}
+
+/* =========================================
+   4. الأزرار والعناصر العامة
+   ========================================= */
+.button {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+}
+
+.button.primary {
+    background-color: white;
+    color: var(--primary-color);
+    border: 2px solid white;
+}
+
+.button.primary:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.button.secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.button.secondary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+main {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.section-container {
+    background: white;
+    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+    color: var(--primary-color);
+    font-size: 2.2em;
+    margin-bottom: 25px;
+    border-bottom: 3px solid var(--border-color);
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+/* =========================================
+   5. شبكة المشاريع (Project Cards)
+   ========================================= */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.project-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-card h3 {
+    font-size: 1.4em;
+    color: var(--primary-color);
+    margin: 15px;
+}
+
+.project-description {
+    padding: 0 15px;
+    color: #555;
+    font-size: 0.95em;
+    flex-grow: 1;
+}
+
+.project-meta-summary {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    font-size: 0.9em;
+    color: #777;
+    background: #f9f9f9;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    width: 90%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--primary-color);
+    text-align: center;
+    font-size: 0; /* إخفاء النص داخل الشريط الصغير */
+}
+
+.project-card .button {
+    margin: 15px;
+    width: auto;
+}
+
+/* =========================================
+   6. الجداول والنماذج (Tables & Forms)
+   ========================================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: right;
+}
+
+th {
+    background-color: var(--light-bg);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+form input, form textarea, form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+form button {
+    width: 100%;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* =========================================
+   7. استجابة الموبايل (Mobile Responsiveness)
+   هذا هو الجزء الوحيد الذي تحتاجه في النهاية
+   ========================================= */
+@media (max-width: 768px) {
+    /* 1. إظهار زر الهمبرغر */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* 2. تعديل شريط التنقل ليحتوي الزر والشعار */
+    .main-nav {
+        flex-direction: row;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    /* 3. إخفاء القائمة افتراضياً وتنسيقها للموبايل */
+    .main-nav ul {
+        display: none; /* مخفي حتى يتم تفعيله بـ JS */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        padding: 20px 0;
+        z-index: 1000;
+    }
+    
+    /* الكلاس الذي يضيفه الـ JS لإظهار القائمة */
+    .main-nav ul.active {
+        display: flex;
+    }
+
+    .main-nav ul li {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .main-nav ul li a {
+        color: var(--text-color);
+        display: block;
+        width: 100%;
+    }
+
+    /* 4. تعديل النصوص والهوامش */
+    .hero h1 { font-size: 2em; }
+    .section-container { padding: 20px; }
+    
+    /* 5. شبكة المشاريع عمود واحد */
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 6. جعل الجدول متجاوب (Cards layout) */
+    table, thead, tbody, th, td, tr { 
+        display: block; 
+    }
+    
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    tr { border-bottom: 2px solid #ddd; margin-bottom: 15px; }
+    
+    td {
+        border: none;
+        border-bottom: 1px solid #eee; 
+        position: relative;
+        padding-left: 50%; 
+        text-align: right;
+    }
+    
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px; /* تغيير لليسار في العربية */
+        width: 45%; 
+        font-weight: bold;
+        color: var(--primary-color);
+        text-align: left;
+    }
+}

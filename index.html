@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الخير للمشاريع المجتمعية</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <a href="index.html">منصة الخير</a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu" id="menu-toggle-btn">
+                ☰
+            </button>
+            <ul id="main-menu-list">
+                <li><a href="index.html#about-platform">عن المنصة</a></li>
+                <li><a href="projects.html">المشاريع</a></li>
+                <li><a href="news.html">الأخبار</a></li>
+                <li><a href="team.html">الكادر المسؤول</a></li>
+                <li><a href="donors.html">شكر المتبرعين</a></li>
+                <li><a href="index.html#contact">اتصل بنا</a></li>
+                <li><a href="add-project.html">إضافة مشروع</a></li>
+            </ul>
+        </nav>
+        <div class="hero">
+            <h1>شارك في بناء مجتمعك</h1>
+            <p>منصة الخير: نبني معًا مستقبلًا أفضل من خلال دعم المشاريع التنموية والخيرية بشفافية ومصداقية.</p>
+            <a href="projects.html" class="button primary">استكشف المشاريع</a>
+        </div>
+    </header>
+    <main>
+        <section id="about-platform" class="section-container">
+            <h2>عن المنصة</h2>
+            <p>منصة الخير هي مبادرة غير ربحية تهدف إلى ربط المتبرعين بالمشاريع الخيرية والتنموية الموثوقة في جميع أنحاء اليمن. نحن نؤمن بقوة العمل الجماعي لإحداث فرق حقيقي في حياة الأفراد والمجتمعات المحتاجة.</p>
+            <p>نعمل بشفافية كاملة، حيث يمكنك تتبع تقدم المشاريع التي تبرعت لها ورؤية الأثر الإيجابي لتبرعاتك، مع ضمان أعلى مستويات المصداقية في تتبع كل ريال يتم إنفاقه.</p>
+        </section>
+
+        <section class="section-container">
+            <h2>أبرز المشاريع</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="https://placehold.co/350x200/4CAF50/FFFFFF?text=Road+Paving+Project" alt="مشروع رصف طريق الحي">
+                    <h3>مشروع رصف طريق الحي</h3>
+                    <p class="project-description">يهدف المشروع إلى رصف الطرق الداخلية في حي [اسم الحي] لتحسين حركة السير وتسهيل الوصول.</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 70%;">70%</div>
+                    </div>
+                    <div class="project-meta-summary">
+                        <span>الهدف: 500,000 ريال</span>
+                        <span>تم جمع: 350,000 ريال</span>
+                    </div>
+                    <a href="project-details.html?id=road-paving" class="button primary">تفاصيل وتبرع</a>
+                </div>
+
+                <div class="project-card">
+                    <img src="https://placehold.co/350x200/4CAF50/FFFFFF?text=Mosque+Renovation+Project" alt="مشروع ترميم مسجد النور">
+                    <h3>مشروع ترميم مسجد النور</h3>
+                    <p class="project-description">إعادة ترميم وتجديد مسجد النور ليكون مكانًا مناسبًا للعبادة والتجمع.</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 30%;">30%</div>
+                    </div>
+                    <div class="project-meta-summary">
+                        <span>الهدف: 350,000 ريال</span>
+                        <span>تم جمع: 105,000 ريال</span>
+                    </div>
+                    <a href="project-details.html?id=mosque-renovation" class="button primary">تفاصيل وتبرع</a>
+                </div>
+
+                <div class="project-card">
+                    <img src="https://placehold.co/350x200/4CAF50/FFFFFF?text=School+Renovation+Project" alt="مشروع ترميم مدرسة الأمل">
+                    <h3>مشروع ترميم مدرسة الأمل</h3>
+                    <p class="project-description">تجديد الفصول الدراسية وتوفير بيئة تعليمية أفضل لأطفالنا.</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 70%;">70%</div>
+                    </div>
+                    <div class="project-meta-summary">
+                        <span>الهدف: 700,000 ريال</span>
+                        <span>تم جمع: 490,000 ريال</span>
+                    </div>
+                    <a href="project-details.html?id=school-renovation" class="button primary">تفاصيل وتبرع</a>
+                </div>
+            </div>
+            <div class="view-all-button">
+                <a href="projects.html" class="button secondary">عرض جميع المشاريع</a>
+            </div>
+        </section>
+
+        <section class="section-container">
+            <h2>شكر خاص للمتبرعين</h2>
+            <p>بفضل كرمكم، استطعنا تحقيق الكثير. إليكم قائمة بأحدث المتبرعين الذين أحدثوا فرقاً.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>المبلغ</th>
+                        <th>المشروع</th>
+                        <th>التاريخ</th>
+                    </tr>
+                </thead>
+                <tbody id="all-donations-table">
+                    <tr>
+                        <td data-label="الاسم">فاعل خير</td>
+                        <td data-label="المبلغ">5000 ريال</td>
+                        <td data-label="المشروع">رصف طريق الحي</td>
+                        <td data-label="التاريخ">2024-07-01</td>
+                    </tr>
+                    <tr>
+                        <td data-label="الاسم">خالد السعدي</td>
+                        <td data-label="المبلغ">10000 ريال</td>
+                        <td data-label="المشروع">رصف طريق الحي</td>
+                        <td data-label="التاريخ">2024-06-28</td>
+                    </tr>
+                    <tr>
+                        <td data-label="الاسم">فاعل خير</td>
+                        <td data-label="المبلغ">20000 ريال</td>
+                        <td data-label="المشروع">ترميم مسجد النور</td>
+                        <td data-label="التاريخ">2024-06-30</td>
+                    </tr>
+                    <tr>
+                        <td data-label="الاسم">علياء محمد</td>
+                        <td data-label="المبلغ">7500 ريال</td>
+                        <td data-label="المشروع">رصف طريق الحي</td>
+                        <td data-label="التاريخ">2024-06-20</td>
+                    </tr>
+                    <tr>
+                        <td data-label="الاسم">مجموعة الشباب</td>
+                        <td data-label="المبلغ">20000 ريال</td>
+                        <td data-label="المشروع">رصف طريق الحي</td>
+                        <td data-label="التاريخ">2024-06-18</td>
+                    </tr>
+                    <tr>
+                        <td data-label="الاسم">عائلة الجمال</td>
+                        <td data-label="المبلغ">15000 ريال</td>
+                        <td data-label="المشروع">ترميم مسجد النور</td>
+                        <td data-label="التاريخ">2024-06-27</td>
+                    </tr>
+                    <tr>
+                        <td data-label="الاسم">فاعل خير</td>
+                        <td data-label="المبلغ">10000 ريال</td>
+                        <td data-label="المشروع">ترميم مدرسة الأمل</td>
+                        <td data-label="التاريخ">2024-07-01</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="view-all-button">
+                <a href="donors.html" class="button secondary">عرض جميع المتبرعين</a>
+            </div>
+        </section>
+
+        <section id="contact" class="section-container">
+            <h2>اتصل بنا</h2>
+            <p>لأي استفسارات أو مقترحات، لا تتردد في التواصل معنا.</p>
+            <form id="contact-form">
+                <input type="text" placeholder="اسمك الكامل" required>
+                <input type="email" placeholder="بريدك الإلكتروني" required>
+                <textarea placeholder="رسالتك" rows="5" required></textarea>
+                <button type="submit" class="button primary">إرسال الرسالة</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="js/message-box.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

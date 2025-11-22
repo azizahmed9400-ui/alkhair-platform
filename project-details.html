@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المشروع | منصة الخير</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <a href="index.html">منصة الخير</a>
+            </div>
+            <ul>
+                <li><a href="index.html#about-platform">عن المنصة</a></li>
+                <li><a href="projects.html">المشاريع</a></li>
+                <li><a href="news.html">الأخبار</a></li>
+                <li><a href="team.html">الكادر المسؤول</a></li>
+                <li><a href="donors.html">شكر المتبرعين</a></li>
+                <li><a href="index.html#contact">اتصل بنا</a></li>
+                <li><a href="add-project.html">إضافة مشروع</a></li>
+            </ul>
+        </nav>
+        <div class="page-hero">
+            <h1 id="project-title-hero">مشروع رصف طريق الحي</h1>
+            <p id="project-tagline-hero">شارك في إنجاز هذا المشروع المجتمعي والخيري الهام، لنصنع فرقًا معًا.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="project-detail-main-info section-container">
+            <div class="project-header-content">
+                <img src="https://placehold.co/800x450/4CAF50/FFFFFF?text=Project+Main+Image" alt="صورة رئيسية للمشروع" id="project-main-image">
+                <div class="project-summary-text">
+                    <h2 id="project-title-summary">مشروع رصف طريق الحي</h2>
+                    <p id="project-description-full">
+                        يهدف هذا المشروع إلى رصف الطرق الداخلية في حي [اسم الحي]، والتي تعاني حالياً من تدهور كبير يؤثر على حركة السير ويسبب تجمع المياه والأتربة. سيسهم المشروع في تحسين جودة الحياة للسكان، وتسهيل وصول الخدمات الأساسية، وتعزيز المظهر العام للمنطقة. نحن نسعى لجمع المبلغ المطلوب لإتمام هذا العمل الحيوي الذي سيخدم الآلاف من سكان الحي.
+                    </p>
+                    <div class="project-meta">
+                        <p><strong>الموقع:</strong> <span id="project-location">حي الروضة، تعز</span></p>
+                        <p><strong>الهدف:</strong> <span id="project-goal">500,000 ريال يمني</span></p>
+                        <p><strong>المدة المتوقعة:</strong> <span id="project-duration">3 أشهر</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-donate-container">
+                <div class="progress-section project-individual-progress">
+                    <h3>حالة التمويل الحالية</h3>
+                    <div class="progress-bar">
+                        <div class="progress" id="project-progress-bar" style="width: 50%;">50%</div>
+                    </div>
+                    <div class="stats">
+                        <p>المبلغ المطلوب: <span id="project-total-cost">500,000 ريال</span></p>
+                        <p>المبلغ المدفوع: <span id="project-paid">250,000 ريال</span></p>
+                        <p>المتبقي: <span id="project-remaining">250,000 ريال</span></p>
+                        <p>عدد المتبرعين: <span id="project-donors-count">120</span></p>
+                    </div>
+                    <a href="#donate-form-section" class="button primary donate-now-button">تبرع الآن لدعم هذا المشروع</a>
+                </div>
+
+                <div class="donate-section project-individual-donate" id="donate-form-section">
+                    <h3>تبرع لدعم مشروع <span id="donate-project-name">رصف طريق الحي</span></h3>
+                    <form id="donate-form">
+                        <input type="number" id="amount" placeholder="المبلغ الذي تريد التبرع به" required min="1">
+                        <label>
+                            <input type="checkbox" id="anonymous"> التبرع كمجهول
+                        </label>
+                        <button type="submit" class="button primary">إرسال التبرع</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-expenditure-section section-container">
+            <h2>سجل المصروفات والشفافية المالية</h2>
+            <p>هنا يمكنك تتبع كل ريال تم إنفاقه على هذا المشروع، مع إمكانية عرض الفواتير وتأكيد الاستلام.</p>
+            <div class="expenditure-filter-controls">
+                <label for="expenditure-category-filter">تصفية حسب النوع:</label>
+                <select id="expenditure-category-filter">
+                    <option value="all">الكل</option>
+                    <option value="materials">مواد البناء</option>
+                    <option value="labor">أجور عمال/متطوعين</option>
+                    <option value="transport">نقل ومعدات</option>
+                    <option value="meals">وجبات</option>
+                    <option value="fuel">ديزل/وقود</option>
+                    <option value="misc">مصروفات أخرى</option>
+                </select>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>البيان</th>
+                            <th>المبلغ (ريال)</th>
+                            <th>المسؤول</th>
+                            <th>المستلم/البائع</th>
+                            <th>الحالة</th>
+                            <th>الفاتورة/السند</th>
+                            <th>تأكيد الاستلام</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenditure-table-body">
+                        <!-- Data will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-controls">
+                <button id="prev-expenditure-page" class="button secondary" disabled>السابق</button>
+                <span id="current-expenditure-page">1</span> / <span id="total-expenditure-pages">1</span>
+                <button id="next-expenditure-page" class="button secondary" disabled>التالي</button>
+            </div>
+        </section>
+
+        <section class="project-updates-section section-container">
+            <h2>آخر تحديثات المشروع</h2>
+            <p>ابقَ على اطلاع دائم بتقدم العمل في المشروع من خلال التحديثات الدورية والصور والفيديوهات.</p>
+            <div id="project-updates-list" class="updates-grid">
+                <!-- Updates will be populated dynamically by JavaScript -->
+            </div>
+            <div class="view-all-button">
+                <a href="#" class="button primary">تحميل المزيد من التحديثات</a>
+            </div>
+        </section>
+
+        <section class="project-gallery-section section-container">
+            <h2>صور من موقع المشروع وتحديثات التقدم</h2>
+            <div class="gallery-grid" id="project-gallery-grid">
+                <!-- Gallery images will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <section class="project-map-section section-container">
+            <h2>الموقع الجغرافي للمشروع</h2>
+            <div class="map-container">
+                <iframe
+                    width="100%"
+                    height="450"
+                    frameborder="0" style="border:0; border-radius: 8px;"
+                    src="https://maps.google.com/maps?q=Taizz,Yemen&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen>
+                </iframe>
+                <p class="map-description">يمكنك استكشاف موقع المشروع على الخريطة أدناه.</p>
+            </div>
+        </section>
+
+        <section class="project-feasibility-section section-container">
+            <h2>دراسة جدوى المشروع والاحتياجات</h2>
+            <div class="feasibility-item">
+                <h3>المشكلة التي يحلها المشروع:</h3>
+                <p id="feasibility-problem">تدهور الطرق في الحي يؤدي إلى صعوبة في التنقل، تلف المركبات، وتراكم المياه القذرة خلال موسم الأمطار مما يسبب انتشار الأمراض ويعيق حركة التجارة والخدمات الأساسية.</p>
+            </div>
+            <div class="feasibility-item">
+                <h3>أهداف المشروع:</h3>
+                <ul id="feasibility-objectives">
+                    <li>رصف [عدد] كيلومترات من الطرق الداخلية.</li>
+                    <li>تحسين سهولة الوصول للمنازل والمدارس والمرافق الصحية.</li>
+                    <li>تقليل تلوث الهواء الناتج عن الغبار.</li>
+                    <li>المساهمة في بيئة صحية وآمنة للسكان.</li>
+                </ul>
+            </div>
+            <div class="feasibility-item">
+                <h3>الاحتياجات والميزانية التقديرية:</h3>
+                <p id="feasibility-needs-budget">يتطلب المشروع [X] طن من الإسفلت، [Y] متر مكعب من الرمل والحصى، وتأجير معدات ثقيلة، بالإضافة إلى أجور العمالة. التكلفة الإجمالية التقديرية هي <span class="highlight-text">500,000 ريال يمني</span>.</p>
+                <div class="budget-breakdown">
+                    <h4>تفاصيل الميزانية:</h4>
+                    <ul id="budget-breakdown-list">
+                        <li><i class="icon-material"></i> مواد البناء: 60%</li>
+                        <li><i class="icon-labor"></i> أجور العمالة: 25%</li>
+                        <li><i class="icon-equipment"></i> إيجار المعدات: 10%</li>
+                        <li><i class="icon-admin"></i> مصاريف إدارية وتشغيلية: 5%</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feasibility-item">
+                <h3>الجدول الزمني:</h3>
+                <p id="feasibility-timeline">من المتوقع أن يستغرق المشروع 3 أشهر، بدءًا من [تاريخ البدء] وحتى [تاريخ الانتهاء]، مع تقسيم العمل على مراحل محددة.</p>
+            </div>
+        </section>
+
+        <section class="project-impact-section section-container">
+            <h2>العوائد المجتمعية والتأثير المستدام</h2>
+            <div id="project-impact-list">
+                <!-- Impacts will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <section class="project-team-section section-container">
+            <h2>الكادر المسؤول عن هذا المشروع</h2>
+            <div class="team-members-grid" id="project-team-grid">
+                <!-- Team members will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <section class="project-donors-section section-container">
+            <h2>شكر خاص للمتبرعين في هذا المشروع</h2>
+            <p>خالص الشكر والتقدير لكل من ساهم في دعم مشروع رصف طريق الحي. عطاؤكم يصنع فرقًا حقيقيًا.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم المتبرع</th>
+                        <th>المبلغ</th>
+                        <th>التاريخ</th>
+                    </tr>
+                </thead>
+                <tbody id="project-donors-table">
+                    <!-- Project specific donors will be populated by JavaScript -->
+                </tbody>
+            </table>
+            <div class="view-all-donors-link">
+                <a href="donors.html" class="button secondary">عرض جميع المتبرعين على المنصة</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="js/message-box.js"></script>
+    <script src="js/project-details-logic.js"></script>
+</body>
+</html>
