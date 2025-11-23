@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة الخير للمشاريع المجتمعية</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -13,7 +14,7 @@
                 <a href="index.html">منصة الخير</a>
             </div>
             <button class="menu-toggle" aria-label="Toggle menu" id="menu-toggle-btn">
-                ☰
+                <i class="fas fa-bars"></i>
             </button>
             <ul id="main-menu-list">
                 <li><a href="index.html#about-platform">عن المنصة</a></li>
@@ -54,7 +55,9 @@
                         <span>الهدف: 500,000 ريال</span>
                         <span>تم جمع: 350,000 ريال</span>
                     </div>
-                    <a href="project-details.html?id=road-paving" class="button primary">تفاصيل وتبرع</a>
+                    <a href="project-details.html?id=road-paving" class="button primary">
+                        <i class="fas fa-hand-holding-heart"></i> تفاصيل وتبرع
+                    </a>
                 </div>
 
                 <div class="project-card">
@@ -68,7 +71,9 @@
                         <span>الهدف: 350,000 ريال</span>
                         <span>تم جمع: 105,000 ريال</span>
                     </div>
-                    <a href="project-details.html?id=mosque-renovation" class="button primary">تفاصيل وتبرع</a>
+                    <a href="project-details.html?id=mosque-renovation" class="button primary">
+                        <i class="fas fa-hand-holding-heart"></i> تفاصيل وتبرع
+                    </a>
                 </div>
 
                 <div class="project-card">
@@ -82,7 +87,9 @@
                         <span>الهدف: 700,000 ريال</span>
                         <span>تم جمع: 490,000 ريال</span>
                     </div>
-                    <a href="project-details.html?id=school-renovation" class="button primary">تفاصيل وتبرع</a>
+                    <a href="project-details.html?id=school-renovation" class="button primary">
+                        <i class="fas fa-hand-holding-heart"></i> تفاصيل وتبرع
+                    </a>
                 </div>
 
             </div>
@@ -154,19 +161,26 @@
         </section>
 
         <section id="contact" class="section-container">
-            <h2>اتصل بنا</h2>
+            <h2><i class="fas fa-envelope"></i> اتصل بنا</h2>
             <p>لأي استفسارات أو مقترحات، لا تتردد في التواصل معنا.</p>
             <form id="contact-form">
                 <input type="text" placeholder="اسمك الكامل" required>
                 <input type="email" placeholder="بريدك الإلكتروني" required>
                 <textarea placeholder="رسالتك" rows="5" required></textarea>
-                <button type="submit" class="button primary">إرسال الرسالة</button>
+                <button type="submit" class="button primary">
+                    <i class="fas fa-paper-plane"></i> إرسال الرسالة
+                </button>
             </form>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
+        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة <i class="fas fa-heart" style="color: #e74c3c;"></i></p>
+        <div class="social-icons" style="margin-top: 10px;">
+            <i class="fab fa-facebook fa-lg" style="margin: 0 10px; cursor: pointer; color: #fff;"></i>
+            <i class="fab fa-twitter fa-lg" style="margin: 0 10px; cursor: pointer; color: #fff;"></i>
+            <i class="fab fa-instagram fa-lg" style="margin: 0 10px; cursor: pointer; color: #fff;"></i>
+        </div>
     </footer>
 
     <script src="js/message-box.js"></script>
