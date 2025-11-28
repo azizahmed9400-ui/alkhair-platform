@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأكيد استلام مبلغ | نظام الشفافية</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .verify-card {
+            background: white; padding: 40px; border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 90%;
+        }
+        .amount-display { font-size: 2.5em; color: var(--primary-color); font-weight: bold; margin: 20px 0; }
+        .details-list { text-align: right; background: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .details-list p { margin: 10px 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .verified-stamp {
+            color: #2ecc71; border: 3px solid #2ecc71; display: inline-block;
+            padding: 10px 30px; font-size: 1.5em; font-weight: bold; transform: rotate(-10deg);
+            border-radius: 10px; margin-top: 20px; opacity: 0; animation: stamp 0.5s forwards;
+        }
+        @keyframes stamp { from { opacity: 0; transform: scale(2) rotate(-10deg); } to { opacity: 1; transform: scale(1) rotate(-10deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="verify-card" id="verify-card">
+        <i class="fas fa-file-invoice-dollar" style="font-size: 4em; color: #ccc;"></i>
+        <h2>طلب تأكيد استلام دفعة</h2>
+        <p>يرجى مراجعة التفاصيل أدناه وتأكيد استلامك للمبلغ المذكور.</p>
+        
+        <div id="loading">جاري تحميل البيانات...</div>
+        
+        <div id="content" style="display:none;">
+            <div class="amount-display" id="v-amount">0 ريال</div>
+            
+            <div class="details-list">
+                <p><strong>المشروع:</strong> <span id="v-project">...</span></p>
+                <p><strong>مقابل:</strong> <span id="v-item">...</span></p>
+                <p><strong>اسم المستلم المسجل:</strong> <span id="v-recipient">...</span></p>
+                <p><strong>تاريخ السند:</strong> <span id="v-date">...</span></p>
+            </div>
+
+            <button id="confirm-btn" class="button primary" style="width:100%; padding: 15px; font-size: 1.2em;">
+                <i class="fas fa-fingerprint"></i> أؤكد استلامي لهذا المبلغ
+            </button>
+            <div id="already-verified" style="display:none;">
+                <div class="verified-stamp">تم التأكيد</div>
+                <p style="margin-top:20px; color:#777;">تم تأكيد هذه العملية مسبقاً.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const pid = urlParams.get('pid');
+            const eid = urlParams.get('eid');
+
+            const allProjects = window.getStoredData('projects', projectsData);
+            const project = allProjects[pid];
+
+            if(!project) {
+                document.body.innerHTML = '<h1>رابط غير صالح</h1>';
+                return;
+            }
+
+            const expense = project.expenditures.find(e => e.id === eid);
+            if(!expense) {
+                document.body.innerHTML = '<h1>المصروف غير موجود</h1>';
+                return;
+            }
+
+            // عرض البيانات
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+            
+            document.getElementById('v-project').textContent = project.title;
+            document.getElementById('v-amount').textContent = expense.amount.toLocaleString() + ' ريال';
+            document.getElementById('v-item').textContent = expense.item;
+            document.getElementById('v-recipient').textContent = expense.recipient;
+            document.getElementById('v-date').textContent = expense.date;
+
+            // التحقق من الحالة
+            if(expense.status === 'verified') {
+                document.getElementById('confirm-btn').style.display = 'none';
+                document.getElementById('already-verified').style.display = 'block';
+            }
+
+            // منطق الزر
+            document.getElementById('confirm-btn').addEventListener('click', () => {
+                if(confirm('هل أنت متأكد من أنك استلمت هذا المبلغ نقداً أو تحويلاً؟')) {
+                    // تحديث الحالة
+                    expense.status = 'verified';
+                    expense.verificationDate = new Date().toISOString();
+                    
+                    // حفظ البيانات
+                    window.saveData('projects', allProjects);
+                    
+                    // تحديث الواجهة
+                    document.getElementById('confirm-btn').style.display = 'none';
+                    document.getElementById('already-verified').style.display = 'block';
+                    
+                    // تشغيل صوت نجاح (اختياري)
+                    // alert('شكراً لك! تم توثيق العملية بنجاح.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
