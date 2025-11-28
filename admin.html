@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | منصة الخير</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <a href="index.html">لوحة تحكم المنصة</a>
+            </div>
+            <ul>
+                <li><a href="index.html">العودة للموقع</a></li>
+            </ul>
+        </nav>
+        <div class="page-hero">
+            <h1>إدارة بيانات المنصة</h1>
+            <p>مرحباً بك في لوحة التحكم، يمكنك إدارة المشاريع وسجلات المتبرعين.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="admin-dashboard">
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>إجمالي المشاريع</h3>
+                    <p id="total-projects-count">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>المشاريع المنجزة</h3>
+                    <p id="completed-projects-count">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>إجمالي التبرعات</h3>
+                    <p id="total-donations-amount">0 ريال</p>
+                </div>
+                <div class="stat-card">
+                    <h3>عدد المتبرعين</h3>
+                    <p id="total-donors-count">0</p>
+                </div>
+            </div>
+
+            <section class="admin-table-section">
+                <h2>إدارة المشاريع</h2>
+                <a href="add-project.html" class="button primary" style="margin-bottom: 15px;">
+                    <i class="fas fa-plus"></i> إضافة مشروع جديد
+                </a>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>المشروع</th>
+                            <th>الفئة</th>
+                            <th>الهدف (ريال)</th>
+                            <th>المحصّل (ريال)</th>
+                            <th>التقدم</th>
+                            <th>الحالة</th>
+                            <th>إجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projects-admin-table-body">
+                        </tbody>
+                </table>
+            </section>
+            
+            <hr style="margin: 40px 0;">
+
+            <section class="admin-table-section">
+                <h2>سجلات المتبرعين</h2>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>الاسم</th>
+                            <th>المبلغ (ريال)</th>
+                            <th>المشروع</th>
+                            <th>#ID التبرع</th>
+                        </tr>
+                    </thead>
+                    <tbody id="donors-admin-table-body">
+                        </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/message-box.js"></script>
+    <script src="js/script.js"></script> <script src="js/admin-logic.js"></script> </body>
+</html>

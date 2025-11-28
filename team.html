@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الكادر المسؤول | منصة الخير</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -12,10 +13,14 @@
             <div class="logo">
                 <a href="index.html">منصة الخير</a>
             </div>
-            <ul>
+            <button class="menu-toggle" aria-label="Toggle menu" id="menu-toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="main-menu-list">
                 <li><a href="index.html#about-platform">عن المنصة</a></li>
                 <li><a href="projects.html">المشاريع</a></li>
                 <li><a href="news.html">الأخبار</a></li>
+                <li><a href="education.html" class="active">الأكاديمية</a></li>
                 <li><a href="team.html">الكادر المسؤول</a></li>
                 <li><a href="donors.html">شكر المتبرعين</a></li>
                 <li><a href="index.html#contact">اتصل بنا</a></li>
@@ -30,55 +35,20 @@
 
     <main>
         <section class="team-section section-container">
-            <h2>أعضاء فريق منصة الخير</h2>
-            <div class="team-members-grid">
-                <div class="team-member-card">
-                    <img src="https://placehold.co/150x150/FF9800/FFFFFF?text=Member+1" alt="صورة عضو الفريق 1">
-                    <h3>أ. محمد اليوسفي</h3>
-                    <p class="member-role">المدير التنفيذي</p>
-                    <p class="member-description">يقود الفريق ويضع الاستراتيجيات لضمان تحقيق أهداف المنصة.</p>
+            <h2>أعضاء فريق العمل الرئيسي</h2>
+            <div class="team-members-grid" id="platform-team-grid">
                 </div>
-
-                <div class="team-member-card">
-                    <img src="https://placehold.co/150x150/FF9800/FFFFFF?text=Member+2" alt="صورة عضو الفريق 2">
-                    <h3>م. نور أحمد</h3>
-                    <p class="member-role">مسؤولة المشاريع</p>
-                    <p class="member-description">تشرف على اختيار المشاريع وتقييمها ومتابعة تنفيذها على أرض الواقع.</p>
-                </div>
-
-                <div class="team-member-card">
-                    <img src="https://placehold.co/150x150/FF9800/FFFFFF?text=Member+3" alt="صورة عضو الفريق 3">
-                    <h3>أ. خالد السالم</h3>
-                    <p class="member-role">مدير العلاقات العامة</p>
-                    <p class="member-description">يتواصل مع المتبرعين والشركاء ويشرف على حملات التوعية.</p>
-                </div>
-
-                <div class="team-member-card">
-                    <img src="https://placehold.co/150x150/FF9800/FFFFFF?text=Member+4" alt="صورة عضو الفريق 4">
-                    <h3>أ. فاطمة سعيد</h3>
-                    <p class="member-role">المسؤولة المالية</p>
-                    <p class="member-description">تدير الشؤون المالية للمنصة وتضمن الشفافية في كل المعاملات.</p>
-                </div>
-
-                <div class="team-member-card">
-                    <img src="https://placehold.co/150x150/FF9800/FFFFFF?text=Member+5" alt="صورة عضو الفريق 5">
-                    <h3>م. يوسف العبسي</h3>
-                    <p class="member-role">مطور الويب</p>
-                    <p class="member-description">يعمل على تطوير وصيانة المنصة الإلكترونية لتحسين تجربة المستخدم.</p>
-                </div>
-
-            </div>
         </section>
 
         <section class="mission-vision-section section-container">
             <h2>رسالتنا ورؤيتنا</h2>
             <div class="mission-vision-content">
                 <div class="mv-item">
-                    <h3><i class="icon-mission"></i>رسالتنا</h3>
+                    <h3><i class="fas fa-crosshairs"></i> رسالتنا</h3>
                     <p>ربط الخير بالخير، من خلال منصة شفافة وموثوقة تتيح للمتبرعين دعم المشاريع الخيرية والتنموية التي تحدث فرقاً حقيقياً ومستداماً في المجتمعات المحتاجة، وتعزيز ثقافة العطاء والتكافل.</p>
                 </div>
                 <div class="mv-item">
-                    <h3><i class="icon-vision"></i>رؤيتنا</h3>
+                    <h3><i class="fas fa-eye"></i> رؤيتنا</h3>
                     <p>أن نصبح المنصة الرائدة في المنطقة لتمويل المشاريع المجتمعية، وأن نكون جسراً يربط بين العطاء السخي والاحتياج الحقيقي، لبناء مجتمعات أكثر قوة وازدهاراً.</p>
                 </div>
             </div>
@@ -89,6 +59,9 @@
         <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
     </footer>
 
+    <script src="js/data.js"></script>
+    <script src="js/message-box.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/team-logic.js"></script>
 </body>
 </html>

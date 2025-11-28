@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | منصة الخير</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: var(--card-bg, #fff);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .login-header i { font-size: 3em; color: var(--primary-color); margin-bottom: 20px; }
+        .login-tips {
+            background: #e3f2fd; color: #0d47a1;
+            padding: 10px; border-radius: 5px; font-size: 0.85em; margin-bottom: 20px; text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo"><a href="index.html">منصة الخير</a></div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="login-container">
+            <div class="login-header">
+                <i class="fas fa-user-circle"></i>
+                <h2>تسجيل الدخول</h2>
+            </div>
+            
+            <div class="login-tips">
+                <strong>للتجربة استخدم البيانات التالية:</strong><br>
+                المدير: admin / 123<br>
+                مدير مشروع: manager / 123<br>
+                متبرع: donor / 123
+            </div>
+
+            <form id="login-form">
+                <input type="text" id="username" placeholder="اسم المستخدم" required>
+                <input type="password" id="password" placeholder="كلمة المرور" required>
+                <button type="submit" class="button primary" style="width: 100%;">دخول</button>
+            </form>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                ليس لديك حساب؟ <a href="#">سجل كمتبرع جديد</a>
+            </p>
+        </div>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/message-box.js"></script>
+    <script src="js/script.js"></script>
+    
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('password').value.trim();
+
+            // البحث في قاعدة البيانات الوهمية
+            // (في الواقع هذا يحدث في السيرفر)
+            const user = usersData.find(user => user.username === u && user.password === p);
+
+            if (user) {
+                // حفظ الجلسة (Session)
+                // نحفظ نسخة آمنة من البيانات بدون كلمة المرور
+                const sessionUser = { ...user };
+                delete sessionUser.password;
+                
+                window.saveData('currentUser', sessionUser);
+                
+                showMessageBox('تم تسجيل الدخول بنجاح! جاري التوجيه...', 'success');
+                
+                // التوجيه حسب الصلاحية
+                setTimeout(() => {
+                    if (user.role === 'admin') window.location.href = 'admin.html';
+                    else if (user.role === 'manager') window.location.href = 'projects.html'; // أو لوحة مشاريعه
+                    else window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                showMessageBox('اسم المستخدم أو كلمة المرور غير صحيحة', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

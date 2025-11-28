@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الخير للتدريب | منصة الخير</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .course-card {
+            display: flex;
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s;
+        }
+        .course-card:hover { transform: translateY(-5px); }
+        .course-image { width: 30%; object-fit: cover; }
+        .course-content { padding: 20px; width: 70%; }
+        .course-meta { display: flex; gap: 15px; color: var(--text-light); font-size: 0.9em; margin-bottom: 10px; }
+        .course-tags span { background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-size: 0.8em; }
+        
+        @media (max-width: 768px) {
+            .course-card { flex-direction: column; }
+            .course-image { width: 100%; height: 200px; }
+            .course-content { width: 100%; box-sizing: border-box; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo"><a href="index.html">منصة الخير</a></div>
+            <button class="menu-toggle" id="menu-toggle-btn"><i class="fas fa-bars"></i></button>
+            <ul id="main-menu-list">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="projects.html">المشاريع</a></li>
+                <li><a href="education.html" class="active">الأكاديمية</a></li>
+                <li><a href="team.html">الفريق</a></li>
+                <li><a href="index.html#contact">اتصل بنا</a></li>
+            </ul>
+        </nav>
+        <div class="page-hero">
+            <h1>أكاديمية الخير للتأهيل</h1>
+            <p>نؤمن أن نجاح العمل الخيري يبدأ بإدارة ناجحة. تعلم معنا المهارات اللازمة لإدارة مشاريعك.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="section-container">
+            <h2>الدورات والورش المتاحة</h2>
+            
+            <div class="course-card">
+                <img src="https://placehold.co/400x300/2196F3/FFFFFF?text=Financial+Management" class="course-image" alt="إدارة مالية">
+                <div class="course-content">
+                    <div class="course-tags"><span>إدارة</span> <span>محاسبة</span></div>
+                    <h3>الإدارة المالية للمشاريع الصغيرة والشفافية</h3>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 3 ساعات</span>
+                        <span><i class="fas fa-chalkboard-teacher"></i> د. محمد المالي</span>
+                    </div>
+                    <p>تعلم كيفية إعداد الميزانيات، توثيق المصروفات، والتعامل مع نظام "الفواتير المؤكدة" في منصة الخير.</p>
+                    <a href="#" class="button secondary small">مشاهدة الدورة</a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <img src="https://placehold.co/400x300/FF9800/FFFFFF?text=Media+Skills" class="course-image" alt="توثيق إعلامي">
+                <div class="course-content">
+                    <div class="course-tags"><span>إعلام</span> <span>تصوير</span></div>
+                    <h3>فنون التوثيق الإعلامي للمشاريع الخيرية</h3>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 2 ساعة</span>
+                        <span><i class="fas fa-camera"></i> أ. سارة المصورة</span>
+                    </div>
+                    <p>كيف تلتقط صوراً وفيديوهات احترافية بهاتفك لنقل معاناة الناس وإنجازات المشروع بمصداقية عالية.</p>
+                    <a href="#" class="button secondary small">مشاهدة الدورة</a>
+                </div>
+            </div>
+
+             <div class="course-card">
+                <img src="https://placehold.co/400x300/4CAF50/FFFFFF?text=Platform+Usage" class="course-image" alt="استخدام المنصة">
+                <div class="course-content">
+                    <div class="course-tags"><span>تقنية</span> <span>للمتطوعين</span></div>
+                    <h3>دليل استخدام منصة الخير (للمدراء والمتطوعين)</h3>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 1 ساعة</span>
+                        <span><i class="fas fa-laptop-code"></i> م. الدعم الفني</span>
+                    </div>
+                    <p>شرح شامل لكيفية رفع المشاريع، إدارة المراحل، تأكيد الفواتير، والتعامل مع لوحة التحكم.</p>
+                    <a href="#" class="button secondary small">مشاهدة الدورة</a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/message-box.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">تفاصيل الخبر | منصة الخير</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            </nav>
+        <div class="page-hero">
+            <h1 id="news-title-hero">عنوان الخبر هنا</h1>
+            <p id="news-meta-hero">تاريخ النشر والناشر</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="news-detail-section section-container">
+            <div class="news-content-wrapper">
+                <img id="news-main-image" src="" alt="صورة الخبر" class="news-detail-image">
+                <div id="news-full-content" class="news-text-content">
+                    </div>
+            </div>
+        </section>
+
+        <section class="comments-section section-container">
+            <h2><i class="fas fa-comments"></i> التعليقات والأراء</h2>
+            
+            <div id="comments-list" class="comments-list">
+                </div>
+
+            <div class="add-comment-form">
+                <h3>أضف تعليقك أو رأيك</h3>
+                <form id="add-comment-form">
+                    <input type="text" id="comment-name" placeholder="اسمك (أو متبرع كريم)" required>
+                    <textarea id="comment-text" placeholder="اكتب تعليقك أو رأيك أو نصيحتك هنا..." rows="4" required></textarea>
+                    <button type="submit" class="button secondary">
+                        <i class="fas fa-paper-plane"></i> إرسال التعليق
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section class="inquiry-section section-container">
+            <h2><i class="fas fa-question-circle"></i> إرسال استفسار خاص</h2>
+            <p>لإرسال استفسار خاص أو متابعة (لن يظهر للجمهور)، استخدم النموذج أدناه:</p>
+            <form id="inquiry-form" class="form-container contact-form-small">
+                <input type="email" placeholder="بريدك الإلكتروني (للتواصل معك)" required>
+                <textarea placeholder="استفسارك أو طلبك الخاص" rows="4" required></textarea>
+                <button type="submit" class="button primary">
+                    <i class="fas fa-envelope"></i> إرسال الاستفسار
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/message-box.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/news-details-logic.js"></script>
+</body>
+</html>

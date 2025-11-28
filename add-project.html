@@ -3,87 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إضافة مشروع جديد | منصة الخير</title>
+    <title>إضافة مشروع شراكة جديد | منصة الخير</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* شريط التقدم للخطوات */
+        .wizard-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .wizard-progress::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #eee;
+            z-index: 0;
+        }
+        .step-indicator {
+            position: relative;
+            z-index: 1;
+            background: #fff;
+            padding: 0 10px;
+            text-align: center;
+            width: 80px;
+        }
+        .step-circle {
+            width: 35px;
+            height: 35px;
+            background: #eee;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #777;
+            transition: 0.3s;
+        }
+        .step-label {
+            font-size: 0.85em;
+            color: #777;
+        }
+        .step-indicator.active .step-circle {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 0 5px rgba(76, 175, 80, 0.2);
+        }
+        .step-indicator.completed .step-circle {
+            background: var(--primary-color);
+            color: white;
+        }
+        .step-indicator.active .step-label { color: var(--primary-color); font-weight: bold; }
+
+        /* إخفاء واظهار الخطوات */
+        .form-step { display: none; animation: fadeIn 0.5s; }
+        .form-step.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* تنسيق الحقول الديناميكية (الميزانية والفريق) */
+        .dynamic-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .dynamic-row input { margin-bottom: 0; }
+        .remove-row-btn {
+            background: #ffebee;
+            color: #c62828;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        /* أزرار التنقل */
+        .wizard-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        /* رسالة النجاح */
+        #success-message {
+            text-align: center;
+            padding: 50px 20px;
+            display: none;
+        }
+        .success-icon {
+            font-size: 5em;
+            color: var(--success-color);
+            margin-bottom: 20px;
+        }
+        
+        /* تحسينات للتجاوب على الموبايل */
+        @media (max-width: 600px) {
+            .wizard-progress { width: 100%; }
+            .step-label { display: none; } /* إخفاء النص في الشاشات الصغيرة */
+            .dynamic-row { flex-direction: column; align-items: stretch; }
+            .remove-row-btn { width: 100%; margin-top: 5px; border-radius: 5px; }
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="main-nav">
-            <div class="logo">
-                <a href="index.html">منصة الخير</a>
-            </div>
-            <ul>
+            <div class="logo"><a href="index.html">منصة الخير</a></div>
+            <button class="menu-toggle" aria-label="Toggle menu" id="menu-toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="main-menu-list">
                 <li><a href="index.html#about-platform">عن المنصة</a></li>
                 <li><a href="projects.html">المشاريع</a></li>
-                <li><a href="news.html">الأخبار</a></li>
-                <li><a href="team.html">الكادر المسؤول</a></li>
+                <li><a href="education.html" class="active">الأكاديمية</a></li>
                 <li><a href="donors.html">شكر المتبرعين</a></li>
                 <li><a href="index.html#contact">اتصل بنا</a></li>
-                <li><a href="add-project.html">إضافة مشروع</a></li>
+                <li><a href="add-project.html" class="active">إضافة مشروع</a></li>
             </ul>
+        </nav>
         <div class="page-hero">
-            <h1>إضافة مشروع خيري جديد</h1>
-            <p>املأ النموذج التالي لإضافة تفاصيل مشروع جديد إلى منصة الخير.</p>
+            <h1>ابدأ مشروع شراكة جديد</h1>
+            <p>املأ البيانات بدقة لنضمن الشفافية ونكسب ثقة الشركاء (المتبرعين).</p>
         </div>
     </header>
 
     <main>
-        <section class="add-project-section section-container">
-            <h2>تفاصيل المشروع</h2>
-            <form id="add-project-form">
-                <div class="form-group">
-                    <label for="project-title">عنوان المشروع:</label>
-                    <input type="text" id="project-title" name="projectTitle" required placeholder="مثال: مشروع رصف طريق الحي">
+        <section class="section-container" id="wizard-container">
+            <div class="wizard-progress">
+                <div class="step-indicator active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">الأساسيات</div>
+                </div>
+                <div class="step-indicator" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">التفاصيل</div>
+                </div>
+                <div class="step-indicator" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">الميزانية</div>
+                </div>
+                <div class="step-indicator" data-step="4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">الفريق</div>
+                </div>
+            </div>
+
+            <form id="project-wizard-form">
+                
+                <div class="form-step active" id="step-1">
+                    <h3>1. معلومات المشروع الأساسية</h3>
+                    <div class="form-group">
+                        <label>عنوان المشروع *</label>
+                        <input type="text" id="p-title" required placeholder="مثال: مشروع حفر بئر ارتوازي في قرية...">
+                    </div>
+                    <div class="form-group">
+                        <label>الشعار المختصر (Tagline) *</label>
+                        <input type="text" id="p-tagline" required placeholder="جملة واحدة تظهر تحت العنوان تلخص المشروع">
+                    </div>
+                    <div class="form-group">
+                        <label>الفئة *</label>
+                        <select id="p-category" required>
+                            <option value="">اختر الفئة</option>
+                            <option value="بنية تحتية">بنية تحتية</option>
+                            <option value="مياه">مياه</option>
+                            <option value="بناء وتعمير">بناء وتعمير</option>
+                            <option value="تعليم">تعليم</option>
+                            <option value="صحة">صحة</option>
+                            <option value="إغاثة">إغاثة</option>
+                            <option value="تمكين">تمكين</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>المبلغ المستهدف (ريال) *</label>
+                        <input type="number" id="p-goal" required min="1000">
+                    </div>
+                    <div class="form-group">
+                        <label>صورة الغلاف (رابط URL) *</label>
+                        <input type="url" id="p-image" required placeholder="https://example.com/image.jpg">
+                        <small style="color:#777">يمكنك استخدام هذا الرابط للتجربة: https://placehold.co/800x450/4CAF50/FFFFFF?text=Project+Image</small>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="project-description">وصف المشروع:</label>
-                    <textarea id="project-description" name="projectDescription" rows="8" required placeholder="تفاصيل شاملة عن المشروع، أهدافه، وأثره المتوقع..."></textarea>
+                <div class="form-step" id="step-2">
+                    <h3>2. تفاصيل المشروع والموقع</h3>
+                    <div class="form-group">
+                        <label>وصف المشكلة (لماذا نحتاج هذا المشروع؟) *</label>
+                        <textarea id="p-problem" rows="3" required placeholder="اشرح معاناة المستفيدين الحالية..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>وصف الحل (ماذا سنفعل؟) *</label>
+                        <textarea id="p-description" rows="4" required placeholder="تفاصيل التنفيذ الفنية..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>الأثر المتوقع (العائد على المجتمع) *</label>
+                        <textarea id="p-impact" rows="3" required placeholder="كم عدد المستفيدين؟ وما التغيير الذي سيحدث؟"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>الموقع الجغرافي (نص) *</label>
+                        <input type="text" id="p-location" required placeholder="المدينة، الحي، اسم القرية">
+                    </div>
+                    <div class="form-group">
+                        <label>رابط الخريطة (Google Maps Embed) - اختياري</label>
+                        <input type="text" id="p-map" placeholder='الصق كود iframe من خرائط جوجل هنا'>
+                    </div>
+                    <div class="form-group">
+                        <label>المدة المتوقعة للتنفيذ</label>
+                        <input type="text" id="p-duration" placeholder="مثال: 3 أشهر">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="project-category">فئة المشروع:</label>
-                    <select id="project-category" name="projectCategory" required>
-                        <option value="">اختر فئة</option>
-                        <option value="بناء وتعمير">بناء وتعمير</option>
-                        <option value="تعليم">تعليم</option>
-                        <option value="صحة">صحة</option>
-                        <option value="إغاثة">إغاثة</option>
-                        <option value="تمكين">تمكين</option>
-                        <option value="بنية تحتية">بنية تحتية</option>
-                        <option value="مياه">مياه</option>
-                        <option value="أخرى">أخرى</option>
-                    </select>
+                <div class="form-step" id="step-3">
+                    <h3>3. تفاصيل الميزانية (أين ستذهب الأموال؟)</h3>
+                    <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">الشركاء يثقون بالمشاريع التي توضح تفاصيل الصرف بدقة.</p>
+                    
+                    <div id="budget-container">
+                        </div>
+                    <button type="button" class="button secondary small" onclick="addBudgetRow()">+ أضف بند تكلفة</button>
+                    
+                    <div style="margin-top: 20px; font-weight: bold; background: #e8f5e9; padding: 10px; border-radius: 5px;">
+                         الإجمالي التقديري من البنود: <span id="budget-total-calc">0</span> ريال
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="total-target-amount">المبلغ المستهدف (ريال):</label>
-                    <input type="number" id="total-target-amount" name="totalTargetAmount" required min="1000" placeholder="مثال: 500000">
+                <div class="form-step" id="step-4">
+                    <h3>4. فريق الإشراف والتنفيذ</h3>
+                    <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">من سيقوم بالإشراف على المشروع؟ (لتعزيز المصداقية)</p>
+                    
+                    <div id="team-container">
+                        </div>
+                    <button type="button" class="button secondary small" onclick="addTeamRow()">+ أضف عضو فريق</button>
                 </div>
 
-                <div class="form-group">
-                    <label for="start-date">تاريخ البدء:</label>
-                    <input type="date" id="start-date" name="startDate" required>
+                <div class="wizard-buttons">
+                    <button type="button" id="prev-btn" class="button secondary" style="visibility: hidden;">السابق</button>
+                    <button type="button" id="next-btn" class="button primary">التالي: التفاصيل</button>
+                    <button type="submit" id="submit-btn" class="button primary" style="display: none;">حفظ ونشر المشروع</button>
                 </div>
-
-                <div class="form-group">
-                    <label for="end-date">تاريخ الانتهاء المتوقع:</label>
-                    <input type="date" id="end-date" name="endDate">
-                </div>
-
-                <div class="form-group">
-                    <label for="project-image">صورة المشروع (رابط URL):</label>
-                    <input type="url" id="project-image" name="projectImage" placeholder="مثال: https://example.com/project-image.jpg">
-                </div>
-
-                <div class="form-group">
-                    <label for="project-video">رابط فيديو (اختياري):</label>
-                    <input type="url" id="project-video" name="projectVideo" placeholder="مثال: https://youtube.com/watch?v=xyz">
-                </div>
-
-                <button type="submit" class="button primary">إضافة المشروع</button>
             </form>
-            <div id="form-message" class="hidden message"></div>
+
+            <div id="success-message">
+                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                <h2>تم تقديم المشروع بنجاح!</h2>
+                <p>شكراً لمبادرتك. تم حفظ مشروعك في النظام وهو الآن متاح للمعاينة.</p>
+                <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                    <a id="go-to-manage-btn" href="#" class="button primary" style="width: 100%; max-width: 300px;">إدارة مشروعي الآن</a>
+                    
+                    <a href="projects.html" class="button secondary" style="width: 100%; max-width: 300px;">الذهاب لصفحة المشاريع العامة</a>
+                </div>
+            </div>
+
         </section>
     </main>
 
@@ -91,63 +279,34 @@
         <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
     </footer>
 
+    <script src="js/data.js"></script>
     <script src="js/message-box.js"></script>
     <script src="js/script.js"></script>
+
+
+     <script src="js/add-project-logic.js"></script>
+                                        
+                                          </main>
+
+    <footer>
+        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="js/data.js"></script> 
+    
+    <script src="js/message-box.js"></script>
+    
+    <script src="js/script.js"></script> 
+    
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const addProjectForm = document.getElementById('add-project-form');
-            const formMessage = document.getElementById('form-message');
-
-            addProjectForm.addEventListener('submit', async function(event) {
-                event.preventDefault(); // منع الإرسال الافتراضي
-
-                // جمع بيانات النموذج
-                const projectData = {
-                    title: document.getElementById('project-title').value,
-                    description: document.getElementById('project-description').value,
-                    category: document.getElementById('project-category').value,
-                    totalTargetAmount: parseFloat(document.getElementById('total-target-amount').value),
-                    startDate: document.getElementById('start-date').value,
-                    endDate: document.getElementById('end-date').value,
-                    image: document.getElementById('project-image').value,
-                    video: document.getElementById('project-video').value,
-                    // بيانات افتراضية للمشروع الجديد
-                    currentAmount: 0,
-                    donorsCount: 0,
-                    status: 'قيد التمويل'
-                };
-
-                console.log('Project Data:', projectData);
-
-                try {
-                    // محاكاة إرسال البيانات
-                    // In a real application, you would send this data to your Node.js backend
-                    // const response = await fetch('/api/projects', {
-                    //     method: 'POST',
-                    //     headers: {
-                    //         'Content-Type': 'application/json'
-                    //     },
-                    //     body: JSON.stringify(projectData)
-                    // });
-                    // const result = await response.json();
-
-                    // if (response.ok) {
-                    //     showMessageBox('تم إضافة المشروع بنجاح!', 'success');
-                    //     addProjectForm.reset();
-                    // } else {
-                    //     showMessageBox(`فشل إضافة المشروع: ${result.error || 'حدث خطأ غير معروف.'}`, 'error');
-                    // }
-
-                    // Mock success message for frontend demonstration
-                    showMessageBox('تم إرسال بيانات المشروع بنجاح! (هذا مجرد محاكاة)', 'success');
-                    addProjectForm.reset(); // مسح النموذج بعد الإرسال
-
-                } catch (error) {
-                    console.error('Error submitting project:', error);
-                    showMessageBox('حدث خطأ في الاتصال، يرجى المحاولة لاحقاً.', 'error');
-                }
-            });
-        });
+        // الكود الطويل الذي يخص الـ Wizard (document.addEventListener...) 
+        // الذي أرسلته لك سابقاً، يجب أن يوضع هنا.
+       
+        // إذا كنت قد أبقيت الكود في وسم <script> خاص به داخل HTML، تأكد من وجود الروابط الثلاثة أعلاه
     </script>
+
 </body>
+</html>
+          
+ </body>
 </html>
