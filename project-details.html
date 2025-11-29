@@ -1,225 +1,140 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تفاصيل المشروع | منصة الخير</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <header>
-        <nav class="main-nav">
-            <div class="logo">
-                <a href="index.html">منصة الخير</a>
-            </div>
-            <ul>
-                <li><a href="index.html#about-platform">عن المنصة</a></li>
-                <li><a href="projects.html">المشاريع</a></li>
-                <li><a href="news.html">الأخبار</a></li>
-                <li><a href="education.html" class="active">الأكاديمية</a></li>
-                <li><a href="team.html">الكادر المسؤول</a></li>
-                <li><a href="donors.html">شكر المتبرعين</a></li>
-                <li><a href="index.html#contact">اتصل بنا</a></li>
-                <li><a href="add-project.html">إضافة مشروع</a></li>
-            </ul>
-        </nav>
-        <div class="page-hero">
-            <h1 id="project-title-hero">مشروع رصف طريق الحي</h1>
-            <p id="project-tagline-hero">شارك في إنجاز هذا المشروع المجتمعي والخيري الهام، لنصنع فرقًا معًا.</p>
-        </div>
-    </header>
-
-    <main>
-        <section class="project-detail-main-info section-container">
-            <div class="project-header-content">
-                <img src="https://placehold.co/800x450/4CAF50/FFFFFF?text=Project+Main+Image" alt="صورة رئيسية للمشروع" id="project-main-image">
-                <div class="project-summary-text">
-                    <h2 id="project-title-summary">مشروع رصف طريق الحي</h2>
-                    <p id="project-description-full">
-                        يهدف هذا المشروع إلى رصف الطرق الداخلية في حي [اسم الحي]، والتي تعاني حالياً من تدهور كبير يؤثر على حركة السير ويسبب تجمع المياه والأتربة. سيسهم المشروع في تحسين جودة الحياة للسكان، وتسهيل وصول الخدمات الأساسية، وتعزيز المظهر العام للمنطقة. نحن نسعى لجمع المبلغ المطلوب لإتمام هذا العمل الحيوي الذي سيخدم الآلاف من سكان الحي.
-                    </p>
-                    <div class="project-meta">
-                        <p><strong>الموقع:</strong> <span id="project-location">حي الروضة، تعز</span></p>
-                        <p><strong>الهدف:</strong> <span id="project-goal">500,000 ريال يمني</span></p>
-                        <p><strong>المدة المتوقعة:</strong> <span id="project-duration">3 أشهر</span></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="progress-donate-container">
-                <div class="progress-section project-individual-progress">
-                    <h3>حالة التمويل الحالية</h3>
-                    <div class="progress-bar">
-                        <div class="progress" id="project-progress-bar" style="width: 0%;">0%</div>
-                    </div>
-                    <div class="stats">
-                        <p>المبلغ المطلوب: <span id="project-total-cost">0 ريال</span></p>
-                        <p>المبلغ المدفوع: <span id="project-paid">0 ريال</span></p>
-                        <p>المتبقي: <span id="project-remaining">0 ريال</span></p>
-                        <p>عدد المتبرعين: <span id="project-donors-count">0</span></p>
-                    </div>
-                    <a href="#donate-form-section" class="button primary donate-now-button">تبرع الآن لدعم هذا المشروع</a>
+<main style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start;">
+        
+        <div class="project-content-column">
+            <section class="section-container">
+                <img id="project-main-image" src="" alt="صورة المشروع" style="width:100%; border-radius:10px; margin-bottom:20px;">
+                
+                <div class="project-tabs" style="margin-bottom: 20px; border-bottom: 2px solid #eee;">
+                    <button class="button secondary small" style="border-bottom:none; border-radius: 5px 5px 0 0;">القصة والتفاصيل</button>
                 </div>
 
-                <div class="donate-section project-individual-donate" id="donate-form-section">
-                    <h3>تبرع لدعم مشروع <span id="donate-project-name">رصف طريق الحي</span></h3>
-                    <form id="donate-form">
-                        <input type="number" id="amount" placeholder="المبلغ الذي تريد التبرع به" required min="1">
-                        <label>
-                            <input type="checkbox" id="anonymous"> التبرع كمجهول
-                        </label>
-                        <button type="submit" class="button primary">إرسال التبرع</button>
-                    </form>
-                </div>
-            </div>
-        </section>
+                <div id="project-description" style="line-height: 1.8; color: #444; margin-bottom: 30px;">
+                    </div>
 
-        <section class="project-expenditure-section section-container">
-            <h2>سجل المصروفات والشفافية المالية</h2>
-            <p>هنا يمكنك تتبع كل ريال تم إنفاقه على هذا المشروع، مع إمكانية عرض الفواتير وتأكيد الاستلام.</p>
-            <div class="expenditure-filter-controls">
-                <label for="expenditure-category-filter">تصفية حسب النوع:</label>
-                <select id="expenditure-category-filter">
-                    <option value="all">الكل</option>
-                    <option value="materials">مواد البناء</option>
-                    <option value="labor">أجور عمال/متطوعين</option>
-                    <option value="transport">نقل ومعدات</option>
-                    <option value="meals">وجبات</option>
-                    <option value="fuel">ديزل/وقود</option>
-                    <option value="misc">مصروفات أخرى</option>
-                </select>
-            </div>
-            <div class="table-responsive">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>التاريخ</th>
-                            <th>البيان</th>
-                            <th>المبلغ (ريال)</th>
-                            <th>المسؤول</th>
-                            <th>المستلم/البائع</th>
-                            <th>الحالة</th>
-                            <th>الفاتورة/السند</th>
-                            <th>تأكيد الاستلام</th>
-                        </tr>
-                    </thead>
-                    <tbody id="expenditure-table-body">
-                        <!-- Data will be populated by JavaScript -->
-                    </tbody>
+                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: #f9f9f9; padding: 20px; border-radius: 10px;">
+                    <div><strong><i class="fas fa-map-marker-alt"></i> الموقع:</strong> <span id="project-location">-</span></div>
+                    <div><strong><i class="fas fa-clock"></i> المدة:</strong> <span id="project-duration">-</span></div>
+                </div>
+            </section>
+
+            <section class="section-container">
+                <h2><i class="fas fa-file-invoice-dollar"></i> سجل المصروفات (الشفافية)</h2>
+                <div style="overflow-x: auto;">
+                    <table class="expenditures-table">
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>البيان</th>
+                                <th>المبلغ</th>
+                                <th>الحالة</th>
+                                <th>المستند</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expenditure-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section class="section-container">
+                <h2>أحدث المساهمين</h2>
+                <table style="width:100%">
+                    <tbody id="project-donors-table"></tbody>
                 </table>
-            </div>
-            <div class="pagination-controls">
-                <button id="prev-expenditure-page" class="button secondary" disabled>السابق</button>
-                <span id="current-expenditure-page">1</span> / <span id="total-expenditure-pages">1</span>
-                <button id="next-expenditure-page" class="button secondary" disabled>التالي</button>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <section class="project-updates-section section-container">
-            <h2>آخر تحديثات المشروع</h2>
-            <p>ابقَ على اطلاع دائم بتقدم العمل في المشروع من خلال التحديثات الدورية والصور والفيديوهات.</p>
-            <div id="project-updates-list" class="updates-grid">
-                <!-- Updates will be populated dynamically by JavaScript -->
-            </div>
-            <div class="view-all-button">
-                <a href="#" class="button primary">تحميل المزيد من التحديثات</a>
-            </div>
-        </section>
+        <aside class="sidebar-donation" style="position: sticky; top: 100px;">
+            <div class="section-container" style="text-align: center; border-top: 5px solid var(--primary-color);">
+                <h3 style="margin-top:0;">إحصائيات التمويل</h3>
+                
+                <div style="font-size: 2.5em; font-weight: bold; color: var(--primary-color);" id="project-paid">0</div>
+                <div style="color: #777; margin-bottom: 15px;">من هدف <span id="project-total-cost">0</span></div>
 
-        <section class="project-gallery-section section-container">
-            <h2>صور من موقع المشروع وتحديثات التقدم</h2>
-            <div class="gallery-grid" id="project-gallery-grid">
-                <!-- Gallery images will be populated by JavaScript -->
-            </div>
-        </section>
-
-        <section class="project-map-section section-container">
-            <h2>الموقع الجغرافي للمشروع</h2>
-            <div class="map-container">
-                <iframe
-                    width="100%"
-                    height="450"
-                    frameborder="0" style="border:0; border-radius: 8px;"
-                    src="https://maps.google.com/maps?q=Taizz,Yemen&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen>
-                </iframe>
-                <p class="map-description">يمكنك استكشاف موقع المشروع على الخريطة أدناه.</p>
-            </div>
-        </section>
-
-        <section class="project-feasibility-section section-container">
-            <h2>دراسة جدوى المشروع والاحتياجات</h2>
-            <div class="feasibility-item">
-                <h3>المشكلة التي يحلها المشروع:</h3>
-                <p id="feasibility-problem">تدهور الطرق في الحي يؤدي إلى صعوبة في التنقل، تلف المركبات، وتراكم المياه القذرة خلال موسم الأمطار مما يسبب انتشار الأمراض ويعيق حركة التجارة والخدمات الأساسية.</p>
-            </div>
-            <div class="feasibility-item">
-                <h3>أهداف المشروع:</h3>
-                <ul id="feasibility-objectives">
-                    <li>رصف [عدد] كيلومترات من الطرق الداخلية.</li>
-                    <li>تحسين سهولة الوصول للمنازل والمدارس والمرافق الصحية.</li>
-                    <li>تقليل تلوث الهواء الناتج عن الغبار.</li>
-                    <li>المساهمة في بيئة صحية وآمنة للسكان.</li>
-                </ul>
-            </div>
-            <div class="feasibility-item">
-                <h3>الاحتياجات والميزانية التقديرية:</h3>
-                <p id="feasibility-needs-budget">يتطلب المشروع [X] طن من الإسفلت، [Y] متر مكعب من الرمل والحصى، وتأجير معدات ثقيلة، بالإضافة إلى أجور العمالة. التكلفة الإجمالية التقديرية هي <span class="highlight-text">500,000 ريال يمني</span>.</p>
-                <div class="budget-breakdown">
-                    <h4>تفاصيل الميزانية:</h4>
-                    <ul id="budget-breakdown-list">
-                        <li><i class="icon-material"></i> مواد البناء: 60%</li>
-                        <li><i class="icon-labor"></i> أجور العمالة: 25%</li>
-                        <li><i class="icon-equipment"></i> إيجار المعدات: 10%</li>
-                        <li><i class="icon-admin"></i> مصاريف إدارية وتشغيلية: 5%</li>
-                    </ul>
+                <div class="progress-container">
+                    <div id="project-progress-bar" class="progress-bar" style="width: 0%;"></div>
                 </div>
-            </div>
-            <div class="feasibility-item">
-                <h3>الجدول الزمني:</h3>
-                <p id="feasibility-timeline">من المتوقع أن يستغرق المشروع 3 أشهر، بدءًا من [تاريخ البدء] وحتى [تاريخ الانتهاء]، مع تقسيم العمل على مراحل محددة.</p>
-            </div>
-        </section>
+                <p style="text-align: left; font-size: 0.9em; margin-top: 5px;">
+                    <span id="project-percentage">0%</span> مكتمل
+                </p>
 
-        <section class="project-impact-section section-container">
-            <h2>العوائد المجتمعية والتأثير المستدام</h2>
-            <div id="project-impact-list">
-                <!-- Impacts will be populated by JavaScript -->
-            </div>
-        </section>
+                <hr style="margin: 20px 0; border-color: #eee;">
 
-        <section class="project-team-section section-container">
-            <h2>الكادر المسؤول عن هذا المشروع</h2>
-            <div class="team-members-grid" id="project-team-grid">
-                <!-- Team members will be populated by JavaScript -->
-            </div>
-        </section>
+                <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
+                    <div>
+                        <strong style="display:block; font-size:1.2em;" id="project-donors-count">0</strong>
+                        <span style="font-size:0.8em; color:#777;">متبرع</span>
+                    </div>
+                    <div>
+                        <strong style="display:block; font-size:1.2em;" id="project-days-left">30</strong>
+                        <span style="font-size:0.8em; color:#777;">يوم متبقي</span>
+                    </div>
+                </div>
 
-        <section class="project-donors-section section-container">
-            <h2>شكر خاص للمتبرعين في هذا المشروع</h2>
-            <p>خالص الشكر والتقدير لكل من ساهم في دعم مشروع رصف طريق الحي. عطاؤكم يصنع فرقًا حقيقيًا.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>اسم المتبرع</th>
-                        <th>المبلغ</th>
-                        <th>التاريخ</th>
-                    </tr>
-                </thead>
-                <tbody id="project-donors-table">
-                    <!-- Project specific donors will be populated by JavaScript -->
-                </tbody>
-            </table>
-            <div class="view-all-donors-link">
-                <a href="donors.html" class="button secondary">عرض جميع المتبرعين على المنصة</a>
+                <button onclick="openDonationModal()" class="button primary" style="width: 100%; font-size: 1.2em; padding: 15px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">
+                    <i class="fas fa-heart"></i> تبرع الآن
+                </button>
+                <p style="font-size: 0.8em; color: #888; margin-top: 10px;">🔒 دفع آمن ومضمون 100%</p>
             </div>
-        </section>
- 
+        </aside>
+
     </main>
-<footer>
-        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
-    </footer>
 
-    <script src="js/data.js"></script>         <script src="js/message-box.js"></script> <script src="js/script.js"></script>      <script src="js/project-details-logic.js"></script> 
-</body>
-</html>
+    <div id="donation-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeDonationModal()">&times;</button>
+            
+            <div id="donation-step-1">
+                <h2 style="text-align: center; border:none;">اصنع فرقاً اليوم</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">اختر مبلغ المساهمة</p>
+                
+                <div class="amount-options">
+                    <div class="amount-btn" onclick="selectAmount(1000)">1,000 ر.ي</div>
+                    <div class="amount-btn selected" onclick="selectAmount(5000)">5,000 ر.ي</div>
+                    <div class="amount-btn" onclick="selectAmount(10000)">10,000 ر.ي</div>
+                </div>
+                <input type="number" id="custom-amount" placeholder="أو أدخل مبلغاً آخر" class="form-control" style="text-align: center; font-weight: bold; font-size: 1.1em;">
 
+                <p style="margin-top: 20px; font-weight: bold;">اختر وسيلة الدفع:</p>
+                <div class="payment-methods">
+                    <div class="payment-method-card selected" onclick="selectMethod(this, 'card')">
+                        <i class="fas fa-credit-card" style="color: #2c3e50;"></i> بطاقة بنكية
+                    </div>
+                    <div class="payment-method-card" onclick="selectMethod(this, 'kuraimi')">
+                        <i class="fas fa-mobile-alt" style="color: #e67e22;"></i> ام فلوس / كريمي
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="donor-name-modal" placeholder="الاسم (اختياري - اترك فارغاً لفاعل خير)">
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="anonymous-check-modal"> تبرع كفاعل خير (إخفاء الاسم)
+                    </label>
+                </div>
+
+                <button onclick="processDonation()" class="button primary" style="width: 100%;">تأكيد التبرع</button>
+            </div>
+
+            <div id="donation-processing" class="processing-state">
+                <div class="spinner"></div>
+                <h3>جاري معالجة الدفع الآمن...</h3>
+                <p>يرجى الانتظار وعدم إغلاق الصفحة</p>
+            </div>
+
+            <div id="donation-success" class="processing-state">
+                <i class="fas fa-check-circle" style="font-size: 4em; color: var(--success-color); margin-bottom: 20px;"></i>
+                <h3>شكراً لعطائك!</h3>
+                <p>تم استلام تبرعك بنجاح وسيتم إضافته للمشروع فوراً.</p>
+                <button onclick="closeDonationModal()" class="button secondary" style="margin-top: 20px;">إغلاق</button>
+            </div>
+
+        </div>
+    </div>
+    
+    <style>
+        @media (max-width: 768px) {
+            main { grid-template-columns: 1fr !important; }
+            .sidebar-donation { position: relative !important; top: 0 !important; order: -1; margin-bottom: 30px; }
+        }
+    </style>

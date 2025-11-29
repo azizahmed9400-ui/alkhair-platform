@@ -173,3 +173,34 @@ document.addEventListener('DOMContentLoaded', function () {
         console.warn('تنبيه: تأكد من تحميل js/data.js قبل هذا الملف.');
     }
 });
+/* إضافة في نهاية js/script.js لتشغيل نموذج الاتصال */
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // جمع البيانات
+            const inputs = this.querySelectorAll('input, textarea');
+            const newMessage = {
+                name: inputs[0].value,
+                email: inputs[1].value,
+                message: inputs[2].value,
+                date: new Date().toLocaleDateString('ar-YE')
+            };
+
+            // حفظ الرسالة في LocalStorage ليراها الأدمن
+            const messages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
+            messages.push(newMessage);
+            localStorage.setItem('contactMessages', JSON.stringify(messages));
+
+            // عرض نجاح
+            if(typeof showMessageBox === 'function') {
+                showMessageBox('تم إرسال رسالتك بنجاح! سنرد عليك قريباً.', 'success');
+            } else {
+                alert('تم الإرسال بنجاح!');
+            }
+            this.reset();
+        });
+    }
+});

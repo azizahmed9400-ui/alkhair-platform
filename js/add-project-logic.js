@@ -1,219 +1,170 @@
+/* js/add-project-logic.js */
 
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            /* --- التهيئة --- */
-            let currentStep = 1;
-            const totalSteps = 4;
-            
-            const form = document.getElementById('project-wizard-form');
-            const nextBtn = document.getElementById('next-btn');
-            const prevBtn = document.getElementById('prev-btn');
-            const submitBtn = document.getElementById('submit-btn');
-            const wizardContainer = document.getElementById('wizard-container');
-            const successMsg = document.getElementById('success-message');
-
-            // 1. إضافة صفوف أولية عند التحميل
-            addBudgetRow();
-            addTeamRow();
-
-            /* --- التنقل بين الخطوات --- */
-            nextBtn.addEventListener('click', () => {
-                if(validateStep(currentStep)) {
-                    changeStep(currentStep + 1);
-                }
-            });
-
-            prevBtn.addEventListener('click', () => {
-                changeStep(currentStep - 1);
-            });
-
-            function changeStep(step) {
-                // إخفاء الخطوة الحالية
-                document.getElementById(`step-${currentStep}`).classList.remove('active');
-                document.querySelector(`.step-indicator[data-step="${currentStep}"]`).classList.remove('active');
-                
-                // تلوين الخطوة السابقة كـ "مكتملة"
-                if(step > currentStep) {
-                    document.querySelector(`.step-indicator[data-step="${currentStep}"]`).classList.add('completed');
-                }
-
-                // إظهار الخطوة الجديدة
-                currentStep = step;
-                document.getElementById(`step-${currentStep}`).classList.add('active');
-                document.querySelector(`.step-indicator[data-step="${currentStep}"]`).classList.add('active');
-
-                // تحديث الأزرار
-                prevBtn.style.visibility = (currentStep === 1) ? 'hidden' : 'visible';
-                
-                if (currentStep === totalSteps) {
-                    nextBtn.style.display = 'none';
-                    submitBtn.style.display = 'inline-block';
-                } else {
-                    nextBtn.style.display = 'inline-block';
-                    nextBtn.textContent = 'التالي';
-                    submitBtn.style.display = 'none';
-                }
-                
-                // التمرير لأعلى الصفحة
-                window.scrollTo(0, 100);
-            }
-
-            /* --- التحقق من صحة البيانات --- */
-            function validateStep(step) {
-                const activeStepDiv = document.getElementById(`step-${step}`);
-                const inputs = activeStepDiv.querySelectorAll('input[required], select[required], textarea[required]');
-                let isValid = true;
-                let firstInvalidInput = null;
-                
-                inputs.forEach(input => {
-                    if (!input.value.trim()) {
-                        input.style.borderColor = 'red';
-                        isValid = false;
-                        if (!firstInvalidInput) firstInvalidInput = input;
-                    } else {
-                        input.style.borderColor = '#ddd';
-                    }
-                });
-
-                if (!isValid) {
-                    if(typeof showMessageBox === 'function') {
-                        showMessageBox('يرجى تعبئة جميع الحقول المطلوبة للمتابعة.', 'error');
-                    } else {
-                        alert('يرجى تعبئة الحقول المطلوبة');
-                    }
-                    if(firstInvalidInput) firstInvalidInput.focus();
-                }
-                return isValid;
-            }
-
-       /* js/add-project-logic.js - الجزء الخاص بالحفظ */
-
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
     
-    // التحقق من الخطوة الأخيرة
-    if(!validateStep(totalSteps)) return;
+    // تعريف العناصر
+    const form = document.getElementById('project-wizard-form');
+    const nextBtn = document.getElementById('next-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    const successMsg = document.getElementById('success-message');
+    const wizardContainer = document.getElementById('wizard-container');
 
-    // جلب المستخدم الحالي لربط المشروع به
-    const currentUser = window.getStoredData('currentUser', null);
-    
-    // تجميع البيانات
-    const projectData = {
-        id: 'proj-' + Date.now(),
-        // ربط المشروع بصاحبه (إذا لم يكن مسجلاً، نضعه كـ anonymous مؤقتاً)
-        ownerId: currentUser ? currentUser.id : 'anonymous', 
-        
-        // --- التغيير الجوهري هنا: الحالة الافتراضية ---
-        status: 'pending_approval', // قيد المراجعة
-        
-        title: document.getElementById('p-title').value,
-        tagline: document.getElementById('p-tagline').value,
-        category: document.getElementById('p-category').value,
-        goal: parseFloat(document.getElementById('p-goal').value),
-        paid: 0,
-        imageUrl: document.getElementById('p-image').value,
-        description: document.getElementById('p-description').value,
-        problem: document.getElementById('p-problem').value,
-        location: document.getElementById('p-location').value,
-        duration: document.getElementById('p-duration').value,
-        mapEmbedUrl: document.getElementById('p-map').value,
-        impacts: [{title: 'الأثر المجتمعي', description: document.getElementById('p-impact').value}],
-        budgetBreakdown: getBudgetArray(),
-        team: getTeamArray(),
-        donorsCount: 0,
-        progress: 0,
-        startDate: new Date().toISOString().slice(0, 10),
-        updates: [],
-        expenditures: [],
-        donors: []
-    };
+    let currentStep = 1;
+    const totalSteps = 4;
 
-    if (typeof window.saveData !== 'undefined') {
-        const allProjects = window.getStoredData('projects', projectsData || {});
-        allProjects[projectData.id] = projectData;
-        window.saveData('projects', allProjects);
-        
-        // إخفاء النموذج وعرض رسالة النجاح المعدلة
-        form.style.display = 'none';
-        document.querySelector('.wizard-progress').style.display = 'none';
-        
-        // تحديث رسالة النجاح لتوضح أن المشروع قيد المراجعة
-        const successTitle = document.querySelector('#success-message h2');
-        const successDesc = document.querySelector('#success-message p');
-        
-        if(successTitle) successTitle.textContent = "تم إرسال المشروع للمراجعة!";
-        if(successDesc) successDesc.innerHTML = "شكراً لمبادرتك. مشروعك الآن <strong>قيد المراجعة</strong> من قبل إدارة المنصة.<br>سيصلك إشعار فور الموافقة عليه ونشره للجمهور.";
-        
-        // إخفاء أزرار الإدارة الفورية لأن المشروع لم يُعتمد بعد
-        const manageBtn = document.getElementById('go-to-manage-btn');
-        if(manageBtn) manageBtn.style.display = 'none';
+    // إضافة صفوف أولية للميزانية والفريق عند التحميل
+    if(typeof window.addBudgetRow === 'function') window.addBudgetRow();
+    else addBudgetRowInternal(); // استخدام دالة داخلية إذا لم تكن موجودة
 
-        successMsg.style.display = 'block';
-        window.scrollTo(0,0);
+    if(typeof window.addTeamRow === 'function') window.addTeamRow();
+    else addTeamRowInternal();
+
+    // --- زر التالي ---
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // منع أي سلوك افتراضي
+            console.log("تم الضغط على التالي. الخطوة الحالية:", currentStep);
+
+            if (validateStep(currentStep)) {
+                changeStep(currentStep + 1);
+            } else {
+                alert('يرجى ملء جميع الحقول المطلوبة (المحاطة بالأحمر) قبل المتابعة.');
+            }
+        });
     }
-});
 
+    // --- زر السابق ---
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            changeStep(currentStep - 1);
+        });
+    }
+
+    // --- دالة تغيير الخطوة ---
+    function changeStep(newStep) {
+        // إخفاء الخطوة القديمة
+        const currentStepDiv = document.getElementById(`step-${currentStep}`);
+        const currentIndicator = document.querySelector(`.step-indicator[data-step="${currentStep}"]`);
+        
+        if(currentStepDiv) currentStepDiv.classList.remove('active');
+        if(currentIndicator) currentIndicator.classList.remove('active');
+
+        // إذا تقدمنا للأمام، نضع علامة "مكتمل" على الخطوة السابقة
+        if (newStep > currentStep && currentIndicator) {
+            currentIndicator.classList.add('completed');
+        }
+
+        // إظهار الخطوة الجديدة
+        currentStep = newStep;
+        const newStepDiv = document.getElementById(`step-${currentStep}`);
+        const newIndicator = document.querySelector(`.step-indicator[data-step="${currentStep}"]`);
+
+        if(newStepDiv) newStepDiv.classList.add('active');
+        if(newIndicator) newIndicator.classList.add('active');
+
+        // التحكم بالأزرار
+        if (prevBtn) prevBtn.style.visibility = (currentStep === 1) ? 'hidden' : 'visible';
+        
+        if (currentStep === totalSteps) {
+            if(nextBtn) nextBtn.style.display = 'none';
+            if(submitBtn) submitBtn.style.display = 'inline-block';
+        } else {
+            if(nextBtn) nextBtn.style.display = 'inline-block';
+            if(submitBtn) submitBtn.style.display = 'none';
+        }
+
+        // التمرير للأعلى
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- دالة التحقق من الحقول ---
+    function validateStep(step) {
+        const stepDiv = document.getElementById(`step-${step}`);
+        if (!stepDiv) return true;
+
+        // البحث عن كل الحقول المطلوبة داخل الخطوة الحالية
+        const inputs = stepDiv.querySelectorAll('input[required], select[required], textarea[required]');
+        let isValid = true;
+
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                isValid = false;
+                input.style.borderColor = 'red'; // تلوين الحقل بالأحمر
+                input.style.backgroundColor = '#fff0f0'; // خلفية حمراء فاتحة
+            } else {
+                input.style.borderColor = '#e0e0e0';
+                input.style.backgroundColor = '#ffffff';
+            }
         });
 
-        /* ------------------------------------------------
-           دوال مساعدة (خارج الـ Event Listener لتكون متاحة للـ onclick في HTML)
-           ------------------------------------------------ */
+        return isValid;
+    }
 
-        // 1. منطق الميزانية
-        function addBudgetRow() {
-            const container = document.getElementById('budget-container');
-            const row = document.createElement('div');
-            row.className = 'dynamic-row';
-            row.innerHTML = `
-                <input type="text" placeholder="اسم البند (مثلاً: حديد تسليح)" class="budget-name" style="flex:2" required>
-                <input type="number" placeholder="التكلفة (ريال)" class="budget-cost" style="flex:1" oninput="calculateTotal()" required>
-                <button type="button" class="remove-row-btn" onclick="removeRow(this); calculateTotal()" title="حذف">&times;</button>
-            `;
-            container.appendChild(row);
-        }
+    // --- دوال الصفوف الديناميكية (داخلية لضمان العمل) ---
+    function addBudgetRowInternal() {
+        const container = document.getElementById('budget-container');
+        if(!container) return;
+        const div = document.createElement('div');
+        div.className = 'dynamic-row';
+        div.innerHTML = `
+            <input type="text" class="budget-name" placeholder="البند" required>
+            <input type="number" class="budget-cost" placeholder="التكلفة" required>
+            <button type="button" class="remove-row-btn" onclick="this.parentElement.remove()">x</button>
+        `;
+        container.appendChild(div);
+    }
 
-        function calculateTotal() {
-            const costs = document.querySelectorAll('.budget-cost');
-            let total = 0;
-            costs.forEach(input => {
-                const val = parseFloat(input.value);
-                if(!isNaN(val)) total += val;
-            });
-            document.getElementById('budget-total-calc').textContent = total.toLocaleString();
-        }
+    function addTeamRowInternal() {
+        const container = document.getElementById('team-container');
+        if(!container) return;
+        const div = document.createElement('div');
+        div.className = 'dynamic-row';
+        div.innerHTML = `
+            <input type="text" class="team-name" placeholder="الاسم" required>
+            <input type="text" class="team-role" placeholder="الدور" required>
+            <button type="button" class="remove-row-btn" onclick="this.parentElement.remove()">x</button>
+        `;
+        container.appendChild(div);
+    }
+    
+    // جعل الدوال متاحة للـ HTML (onclick)
+    window.addBudgetRow = addBudgetRowInternal;
+    window.addTeamRow = addTeamRowInternal;
 
-        function getBudgetArray() {
-            const rows = document.querySelectorAll('#budget-container .dynamic-row');
-            return Array.from(rows).map(row => ({
-                name: row.querySelector('.budget-name').value,
-                cost: row.querySelector('.budget-cost').value // يمكن تحويلها لنسبة لاحقاً
-            }));
-        }
 
-        // 2. منطق الفريق
-        function addTeamRow() {
-            const container = document.getElementById('team-container');
-            const row = document.createElement('div');
-            row.className = 'dynamic-row';
-            row.innerHTML = `
-                <input type="text" placeholder="الاسم الكامل" class="team-name" style="flex:2" required>
-                <input type="text" placeholder="الدور (مثلاً: مشرف مالي)" class="team-role" style="flex:2" required>
-                <button type="button" class="remove-row-btn" onclick="removeRow(this)" title="حذف">&times;</button>
-            `;
-            container.appendChild(row);
-        }
+    // --- إرسال النموذج (الحفظ) ---
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // تجميع البيانات وحفظها
+            const newProject = {
+                id: 'proj-' + Date.now(),
+                title: document.getElementById('p-title').value,
+                category: document.getElementById('p-category').value,
+                goal: parseFloat(document.getElementById('p-goal').value),
+                paid: 0,
+                status: 'pending_approval', // حالة الانتظار
+                imageUrl: document.getElementById('p-image').value,
+                description: document.getElementById('p-description').value,
+                startDate: new Date().toISOString().slice(0, 10),
+                donorsCount: 0
+            };
 
-        function getTeamArray() {
-            const rows = document.querySelectorAll('#team-container .dynamic-row');
-            return Array.from(rows).map(row => ({
-                name: row.querySelector('.team-name').value,
-                role: row.querySelector('.team-role').value,
-                imageUrl: 'https://placehold.co/150x150/ccc/fff?text=User' // صورة افتراضية
-            }));
-        }
+            // الحفظ في LocalStorage
+            if (typeof window.getStoredData === 'function') {
+                const allProjects = window.getStoredData('projects', {});
+                allProjects[newProject.id] = newProject;
+                window.saveData('projects', allProjects);
+            }
 
-        // دالة عامة للحذف
-        function removeRow(btn) {
-            btn.parentElement.remove();
-        }
-
+            // إظهار رسالة النجاح
+            form.style.display = 'none';
+            document.querySelector('.wizard-progress').style.display = 'none';
+            if(successMsg) successMsg.style.display = 'block';
+            window.scrollTo(0,0);
+        });
+    }
+});

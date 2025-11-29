@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة دورة تدريبية | منصة الخير</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo"><a href="index.html">منصة الخير</a></div>
+            <ul>
+                <li><a href="admin.html">لوحة التحكم</a></li>
+                <li><a href="education.html">معاينة الأكاديمية</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-hero">
+            <h1>إضافة مادة تعليمية جديدة</h1>
+            <p>شارك المعرفة وساهم في تدريب المتطوعين والمجتمع.</p>
+        </div>
+
+        <section class="section-container" style="max-width: 800px;">
+            <form id="add-course-form" class="form-container" style="background: white; padding: 40px; border-radius: 15px; box-shadow: var(--shadow-md);">
+                
+                <div class="form-group">
+                    <label>عنوان الدورة / الفيديو</label>
+                    <input type="text" id="c-title" placeholder="مثال: أساسيات التصوير التوثيقي" required>
+                </div>
+
+                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label>اسم المدرب</label>
+                        <input type="text" id="c-instructor" placeholder="مثال: أ. أحمد علي" required>
+                    </div>
+                    <div class="form-group">
+                        <label>مدة الدورة</label>
+                        <input type="text" id="c-duration" placeholder="مثال: 15 دقيقة" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>التصنيف</label>
+                    <select id="c-category">
+                        <option value="media">إعلام وتوثيق</option>
+                        <option value="management">إدارة مشاريع</option>
+                        <option value="tech">تقنية</option>
+                        <option value="field">عمل ميداني</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>رابط الفيديو (YouTube)</label>
+                    <input type="url" id="c-video-url" placeholder="https://www.youtube.com/watch?v=..." required>
+                    <small style="color:#777;">يرجى وضع رابط يوتيوب صالح.</small>
+                </div>
+
+                <div class="form-group">
+                    <label>صورة الغلاف (Thumbnail URL)</label>
+                    <input type="url" id="c-thumbnail" placeholder="رابط صورة الغلاف">
+                </div>
+
+                <div class="form-group">
+                    <label>وصف مختصر</label>
+                    <textarea id="c-description" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="button primary" style="width: 100%;">نشر الدورة</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/message-box.js"></script>
+    <script src="js/script.js"></script>
+    
+    <script>
+        /* منطق الحفظ المباشر */
+        document.getElementById('add-course-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // استخراج ID الفيديو من رابط يوتيوب
+            const url = document.getElementById('c-video-url').value;
+            let videoId = '';
+            try {
+                const urlObj = new URL(url);
+                videoId = urlObj.searchParams.get("v");
+                if(!videoId && url.includes('youtu.be')) videoId = url.split('/').pop();
+            } catch(err) { console.error(err); }
+
+            const newCourse = {
+                id: 'course-' + Date.now(),
+                title: document.getElementById('c-title').value,
+                instructor: document.getElementById('c-instructor').value,
+                duration: document.getElementById('c-duration').value,
+                category: document.getElementById('c-category').value,
+                videoId: videoId, // نحفظ الـ ID فقط
+                originalUrl: url,
+                thumbnail: document.getElementById('c-thumbnail').value || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`, // صورة تلقائية من يوتيوب
+                description: document.getElementById('c-description').value,
+                date: new Date().toLocaleDateString('ar-YE')
+            };
+
+            const allCourses = window.getStoredData('courses', []);
+            allCourses.push(newCourse);
+            window.saveData('courses', allCourses);
+
+            if(typeof showMessageBox === 'function') showMessageBox('✅ تم إضافة الدورة بنجاح!', 'success');
+            else alert('تم النشر!');
+            
+            this.reset();
+        });
+    </script>
+</body>
+</html>

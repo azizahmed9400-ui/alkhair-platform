@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الكادر المسؤول | منصة الخير</title>
+    <title>فريقنا والمتطوعون | منصة الخير</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -13,55 +14,95 @@
             <div class="logo">
                 <a href="index.html">منصة الخير</a>
             </div>
-            <button class="menu-toggle" aria-label="Toggle menu" id="menu-toggle-btn">
-                <i class="fas fa-bars"></i>
-            </button>
+            <button class="menu-toggle" id="menu-toggle-btn"><i class="fas fa-bars"></i></button>
             <ul id="main-menu-list">
-                <li><a href="index.html#about-platform">عن المنصة</a></li>
+                <li><a href="index.html">الرئيسية</a></li>
                 <li><a href="projects.html">المشاريع</a></li>
-                <li><a href="news.html">الأخبار</a></li>
-                <li><a href="education.html" class="active">الأكاديمية</a></li>
-                <li><a href="team.html">الكادر المسؤول</a></li>
-                <li><a href="donors.html">شكر المتبرعين</a></li>
+                <li><a href="team.html" class="active">الفريق والتطوع</a></li>
                 <li><a href="index.html#contact">اتصل بنا</a></li>
-                <li><a href="add-project.html">إضافة مشروع</a></li>
             </ul>
         </nav>
         <div class="page-hero">
-            <h1>تعرف على فريقنا</h1>
-            <p>فريقنا المخلص يعمل بجد لضمان تحقيق أقصى تأثير لتبرعاتكم ودعم مشاريعنا.</p>
+            <h1>الأيادي البيضاء خلف الإنجاز</h1>
+            <p>تعرف على الفريق الذي يعمل ليل نهار لضمان وصول مساعدتكم لمستحقيها.</p>
         </div>
     </header>
 
     <main>
-        <section class="team-section section-container">
-            <h2>أعضاء فريق العمل الرئيسي</h2>
-            <div class="team-members-grid" id="platform-team-grid">
+        <section class="section-container">
+            <h2>الهيكل الإداري</h2>
+            <div class="team-members-grid" id="platform-team-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
                 </div>
         </section>
 
-        <section class="mission-vision-section section-container">
-            <h2>رسالتنا ورؤيتنا</h2>
-            <div class="mission-vision-content">
-                <div class="mv-item">
-                    <h3><i class="fas fa-crosshairs"></i> رسالتنا</h3>
-                    <p>ربط الخير بالخير، من خلال منصة شفافة وموثوقة تتيح للمتبرعين دعم المشاريع الخيرية والتنموية التي تحدث فرقاً حقيقياً ومستداماً في المجتمعات المحتاجة، وتعزيز ثقافة العطاء والتكافل.</p>
-                </div>
-                <div class="mv-item">
-                    <h3><i class="fas fa-eye"></i> رؤيتنا</h3>
-                    <p>أن نصبح المنصة الرائدة في المنطقة لتمويل المشاريع المجتمعية، وأن نكون جسراً يربط بين العطاء السخي والاحتياج الحقيقي، لبناء مجتمعات أكثر قوة وازدهاراً.</p>
-                </div>
-            </div>
+        <section class="section-container" style="background-color: #f0fdf4; border: 2px dashed var(--primary-color); border-radius: 20px; padding: 50px 20px; text-align: center; margin-top: 60px;">
+            <i class="fas fa-hands-helping fa-4x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
+            <h2 style="margin-bottom: 10px; border-bottom: none;">انضم لقافلة الخير</h2>
+            <p style="max-width: 600px; margin: 0 auto 30px; color: #555; font-size: 1.1em;">
+                نحن نبحث دائماً عن طاقات شابة ومبدعة. سواء كنت مصوراً، كاتباً، مهندساً، أو محباً للعمل الميداني، مكانك محفوظ بيننا.
+            </p>
+            <button onclick="openVolunteerModal()" class="button primary large">سجل كمتطوع الآن</button>
         </section>
     </main>
 
+    <div id="volunteer-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeVolunteerModal()">&times;</button>
+            <h2 style="text-align: center; border:none;">استمارة التطوع</h2>
+            <form id="volunteer-form">
+                <div class="form-group">
+                    <input type="text" placeholder="الاسم الرباعي" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="رقم الواتساب" required>
+                </div>
+                <div class="form-group">
+                    <label style="display:block; margin-bottom:5px;">مجال التطوع المفضل:</label>
+                    <select required>
+                        <option value="">اختر المجال...</option>
+                        <option value="field">عمل ميداني وتوزيع</option>
+                        <option value="media">إعلام وتصوير</option>
+                        <option value="tech">تقنية وبرمجة</option>
+                        <option value="admin">تنسيق وإدارة</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="نبذة عن خبراتك السابقة (اختياري)" rows="3"></textarea>
+                </div>
+                <button type="submit" class="button primary" style="width: 100%;">إرسال الطلب</button>
+            </form>
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
+        <p>&copy; 2025 منصة الخير. جميع الحقوق محفوظة.</p>
     </footer>
 
     <script src="js/data.js"></script>
     <script src="js/message-box.js"></script>
     <script src="js/script.js"></script>
     <script src="js/team-logic.js"></script>
+    
+    <script>
+        // دوال النافذة المنبثقة للتطوع
+        function openVolunteerModal() {
+            document.getElementById('volunteer-modal').style.display = 'flex';
+        }
+        function closeVolunteerModal() {
+            document.getElementById('volunteer-modal').style.display = 'none';
+        }
+
+        // التعامل مع نموذج التطوع
+        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            closeVolunteerModal();
+            if(typeof showMessageBox === 'function') {
+                showMessageBox('شكراً لمبادرتك! تم استلام طلبك وسنتواصل معك قريباً.', 'success');
+            } else {
+                alert('تم الإرسال بنجاح!');
+            }
+            this.reset();
+        });
+    </script>
 </body>
 </html>

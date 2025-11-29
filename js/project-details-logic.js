@@ -1,152 +1,195 @@
-/* js/project-details-logic.js - منطق عرض وتحديث بيانات تفاصيل المشروع */
+/* js/project-details-logic.js - منطق عرض وتحديث تفاصيل المشروع والتبرع */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. الحصول على ID المشروع من رابط الصفحة
+    // 1. الأساسيات والتحقق
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
 
-    // 2. التحقق من تحميل الدوال الأساسية والبيانات
-    if (typeof window.getStoredData === 'undefined' || typeof projectsData === 'undefined' || typeof donorsData === 'undefined') {
-         console.error('خطأ: لم يتم العثور على دوال LocalStorage أو ملف data.js. تأكد من ترتيب ملفات JS.');
-         document.querySelector('main').innerHTML = '<h2 style="text-align:center; padding:50px;">حدث خطأ في تحميل البيانات الأساسية.</h2>';
+    if (typeof window.getStoredData === 'undefined' || typeof projectsData === 'undefined') {
+         console.error('خطأ: البيانات غير موجودة.');
          return;
     }
-    
-    // سحب جميع المشاريع والتبرعات من LocalStorage أو العودة للبيانات الافتراضية
+
     const allProjectsObject = window.getStoredData('projects', projectsData);
     const allDonorsArray = window.getStoredData('donors', donorsData);
-    
-    // البحث عن المشروع المطلوب
     const project = allProjectsObject[projectId];
-    
-    // -----------------------------------------------------------
-    // دوال مساعدة لإعادة رسم أجزاء محددة بعد التبرع
-    // -----------------------------------------------------------
-    
-    // دالة لرسم إحصائيات التمويل
-    const renderProjectStats = (p) => {
+
+    // 2. التحقق من وجود المشروع وعرض البيانات
+    if (project) {
+        // تعبئة البيانات النصية
+        document.getElementById('project-title-hero').textContent = project.title;
+        document.getElementById('project-tagline-hero').textContent = project.tagline;
+        document.getElementById('project-main-image').src = project.imageUrl;
+        document.getElementById('project-description').textContent = project.description;
+        document.getElementById('project-location').textContent = project.location || 'اليمن';
+        document.getElementById('project-duration').textContent = project.duration || 'غير محدد';
+        
+        // رسم الإحصائيات
+        renderStats(project);
+        
+        // رسم الجداول
+        renderDonors(projectId, allDonorsArray);
+        renderExpenses(project.expenditures);
+
+    } else {
+        document.querySelector('main').innerHTML = '<h2 style="text-align:center; padding:50px;">المشروع غير موجود!</h2>';
+    }
+
+    /* ----------------------------------------------------
+       دوال المساعدة في العرض (Rendering Helpers)
+    ---------------------------------------------------- */
+    function renderStats(p) {
         const goal = p.goal || 1;
         const paid = p.paid || 0;
-        const remaining = Math.max(0, goal - paid);
-        let progressPercent = Math.round((paid / goal) * 100);
-        if (progressPercent > 100) progressPercent = 100;
+        const percentage = Math.min(100, Math.round((paid / goal) * 100));
         
-        document.getElementById('project-total-cost').textContent = `${goal.toLocaleString()} ريال`;
-        document.getElementById('project-paid').textContent = `${paid.toLocaleString()} ريال`;
-        document.getElementById('project-remaining').textContent = `${remaining.toLocaleString()} ريال`;
+        document.getElementById('project-total-cost').textContent = goal.toLocaleString();
+        document.getElementById('project-paid').textContent = paid.toLocaleString();
         document.getElementById('project-donors-count').textContent = (p.donorsCount || 0).toLocaleString();
         
-        const progressBar = document.getElementById('project-progress-bar');
-        progressBar.style.width = `${progressPercent}%`;
-        progressBar.textContent = `${progressPercent.toFixed(0)}%`;
-        progressBar.setAttribute('aria-valuenow', progressPercent);
-    };
+        const bar = document.getElementById('project-progress-bar');
+        bar.style.width = `${percentage}%`;
+        document.getElementById('project-percentage').textContent = `${percentage}%`;
+    }
 
-    // دالة لرسم جدول المتبرعين الخاص بالمشروع
-    const renderProjectDonors = (id, allDonors) => {
-        const donorsTableBody = document.getElementById('project-donors-table');
-        donorsTableBody.innerHTML = '';
+    function renderDonors(pid, allDonors) {
+        const tbody = document.getElementById('project-donors-table');
+        tbody.innerHTML = '';
+        const relevantDonors = allDonors.filter(d => d.projectId === pid).sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
         
-        const projectDonors = allDonors.filter(donor => donor.projectId === id)
-                                       .sort((a, b) => new Date(b.date) - new Date(a.date)) // الأحدث أولاً
-                                       .slice(0, 5); // عرض آخر 5 فقط
-        
-        if (projectDonors.length === 0) {
-            donorsTableBody.innerHTML = '<tr><td colspan="3" style="text-align:center;">كن أول متبرع لهذا المشروع!</td></tr>';
+        if(relevantDonors.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#777;">كن أول المبادرين بالخير!</td></tr>';
             return;
         }
 
-        projectDonors.forEach(donor => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${donor.isAnonymous ? 'متبرع كريم' : donor.name}</td>
-                <td>${parseInt(donor.amount).toLocaleString()} ريال</td>
-                <td>${donor.date}</td>
+        relevantDonors.forEach(d => {
+            tbody.innerHTML += `
+                <tr>
+                    <td><i class="fas fa-user-circle" style="color:#ccc;"></i> ${d.name}</td>
+                    <td style="color:var(--success-color); font-weight:bold;">${d.amount.toLocaleString()}</td>
+                    <td style="font-size:0.8em; color:#777;">${d.date}</td>
+                </tr>
             `;
-            donorsTableBody.appendChild(row);
+        });
+    }
+
+    function renderExpenses(expenses) {
+        const tbody = document.getElementById('expenditure-table-body');
+        if(!tbody) return;
+        tbody.innerHTML = '';
+        
+        if(!expenses || expenses.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">لا توجد مصروفات مسجلة بعد.</td></tr>';
+            return;
+        }
+
+        expenses.forEach(exp => {
+            const isVerified = exp.status === 'verified';
+            const statusBadge = isVerified 
+                ? '<span style="color:var(--success-color);"><i class="fas fa-check"></i> مؤكد</span>' 
+                : '<span style="color:var(--secondary-color);">قيد المراجعة</span>';
+                
+            tbody.innerHTML += `
+                <tr>
+                    <td>${exp.date}</td>
+                    <td>${exp.item}</td>
+                    <td>${exp.amount.toLocaleString()}</td>
+                    <td>${statusBadge}</td>
+                    <td>${exp.invoiceUrl ? '<a href="#">عرض</a>' : '-'}</td>
+                </tr>
+            `;
+        });
+    }
+
+    /* ----------------------------------------------------
+       منطق النافذة المنبثقة والتبرع (Modal & Donation Logic)
+    ---------------------------------------------------- */
+    let selectedAmount = 5000; // القيمة الافتراضية
+
+    // جعل الدوال متاحة عالمياً (Global) لاستخدامها في HTML onclick
+    window.openDonationModal = function() {
+        document.getElementById('donation-modal').style.display = 'flex';
+    };
+
+    window.closeDonationModal = function() {
+        document.getElementById('donation-modal').style.display = 'none';
+        // إعادة تعيين الشاشات
+        document.getElementById('donation-step-1').style.display = 'block';
+        document.getElementById('donation-processing').style.display = 'none';
+        document.getElementById('donation-success').style.display = 'none';
+    };
+
+    window.selectAmount = function(amount) {
+        selectedAmount = amount;
+        document.getElementById('custom-amount').value = ''; // تصفير الحقل المخصص
+        
+        // تحديث الأزرار
+        document.querySelectorAll('.amount-btn').forEach(btn => {
+            btn.classList.remove('selected');
+            if(btn.textContent.includes(amount.toLocaleString())) btn.classList.add('selected');
         });
     };
 
-    // ----------------------------------------------------------
-    // المنطق الرئيسي: هل المشروع موجود؟
-    // ----------------------------------------------------------
-    if (project) {
-        
-        // أ. تحديث محتوى الـ Hero والـ Meta
-        document.getElementById('project-title-hero').textContent = project.title || 'مشروع خيري';
-        document.getElementById('project-tagline-hero').textContent = project.tagline || '';
-        document.getElementById('project-main-image').src = project.imageUrl || 'https://placehold.co/800x450?text=No+Image';
-        document.getElementById('project-description').textContent = project.description || 'لا يوجد وصف متاح.';
-        document.getElementById('project-location').textContent = project.location || 'غير محدد';
-        document.getElementById('project-duration').textContent = project.duration || 'غير محدد';
-        
-        // ب. عرض إحصائيات التمويل وجدول المتبرعين
-        renderProjectStats(project);
-        renderProjectDonors(projectId, allDonorsArray);
+    window.selectMethod = function(card, type) {
+        document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+    };
 
-        // ج. التعامل مع نموذج التبرع (Donation Form)
-        const donationForm = document.getElementById('donation-form');
-        if (donationForm) {
-            donationForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const amount = parseFloat(document.getElementById('donation-amount').value);
-                const donorName = document.getElementById('donor-name').value.trim();
-                const isAnonymous = document.getElementById('anonymous-check').checked;
-                
-                if (isNaN(amount) || amount <= 0) {
-                    showMessageBox('يرجى إدخال مبلغ تبرع صحيح.', 'error');
-                    return;
-                }
-                
-                // 1. تحديث بيانات المشروع في LocalStorage
-                const targetProject = allProjectsObject[projectId];
-                targetProject.paid = (targetProject.paid || 0) + amount;
-                targetProject.donorsCount = (targetProject.donorsCount || 0) + 1;
-                
-                window.saveData('projects', allProjectsObject);
-                
-                // 2. تحديث سجل المتبرعين في LocalStorage
-                const updatedDonors = window.getStoredData('donors', donorsData);
-                const newDonor = {
-                    id: 'donor-' + Date.now(),
-                    name: isAnonymous ? 'متبرع كريم' : donorName || 'متبرع باسم مجهول',
-                    amount: amount,
-                    projectId: projectId,
-                    project: project.title, // حفظ اسم المشروع للتسهيل
-                    isAnonymous: isAnonymous,
-                    date: new Date().toISOString().slice(0, 10) // تاريخ اليوم (YYYY-MM-DD)
-                };
+    // الاستماع لإدخال مبلغ مخصص
+    const customInput = document.getElementById('custom-amount');
+    if(customInput) {
+        customInput.addEventListener('input', (e) => {
+            if(e.target.value) {
+                selectedAmount = parseFloat(e.target.value);
+                document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('selected'));
+            }
+        });
+    }
 
-                updatedDonors.push(newDonor);
-                window.saveData('donors', updatedDonors);
-
-                // 3. تحديث واجهة المستخدم (Re-render)
-                if (targetProject) {
-                   project.paid = targetProject.paid; // تحديث الكائن المحلي
-                   project.donorsCount = targetProject.donorsCount;
-                   renderProjectStats(project); // تحديث الإحصائيات
-                   renderProjectDonors(projectId, updatedDonors); // تحديث جدول المتبرعين
-                }
-
-                // عرض رسالة النجاح ومسح النموذج
-                if (typeof showMessageBox === 'function') {
-                    showMessageBox(`✅ شكراً لك! تم استلام تبرعك بمبلغ ${amount.toLocaleString()} ريال بنجاح.`, 'success');
-                } else {
-                    alert('تم استلام تبرعك بنجاح!');
-                }
-                
-                donationForm.reset(); 
-            });
+    // التنفيذ الفعلي للتبرع (المحاكاة)
+    window.processDonation = function() {
+        if (!selectedAmount || selectedAmount <= 0) {
+            alert('يرجى تحديد مبلغ صحيح للتبرع.');
+            return;
         }
 
-    } else {
-        // إذا كان رقم المشروع غير موجود أو خاطئ
-        document.querySelector('main').innerHTML = `
-            <section style="text-align: center; padding: 50px;">
-                <h2>عذراً، المشروع غير موجود!</h2>
-                <p>يرجى العودة إلى <a href="projects.html" class="button primary">صفحة المشاريع</a> لاختيار مشروع آخر.</p>
-            </section>
-        `;
-    }
+        // 1. إخفاء النموذج وإظهار التحميل
+        document.getElementById('donation-step-1').style.display = 'none';
+        document.getElementById('donation-processing').style.display = 'block';
+
+        // 2. محاكاة انتظار (2 ثانية)
+        setTimeout(() => {
+            // حفظ البيانات فعلياً
+            const nameInput = document.getElementById('donor-name-modal').value;
+            const isAnon = document.getElementById('anonymous-check-modal').checked;
+            const finalName = isAnon ? 'فاعل خير' : (nameInput.trim() || 'فاعل خير');
+
+            // تحديث المشروع
+            project.paid = (project.paid || 0) + selectedAmount;
+            project.donorsCount = (project.donorsCount || 0) + 1;
+            allProjectsObject[projectId] = project;
+            window.saveData('projects', allProjectsObject);
+
+            // إضافة سجل المتبرع
+            const newDonor = {
+                id: Date.now(),
+                name: finalName,
+                amount: selectedAmount,
+                projectId: projectId,
+                project: project.title,
+                date: new Date().toISOString().slice(0, 10)
+            };
+            allDonorsArray.push(newDonor);
+            window.saveData('donors', allDonorsArray);
+
+            // 3. إظهار رسالة النجاح وتحديث الصفحة في الخلفية
+            document.getElementById('donation-processing').style.display = 'none';
+            document.getElementById('donation-success').style.display = 'block';
+            
+            // تحديث الواجهة الخلفية فوراً
+            renderStats(project);
+            renderDonors(projectId, allDonorsArray);
+
+        }, 2000); // تأخير 2000 ميلي ثانية
+    };
 });

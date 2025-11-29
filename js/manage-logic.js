@@ -66,10 +66,89 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     // 5. منطق إضافة مصروف (Expense)
     // ----------------------------------------------------
-    const expenseForm = document.getElementById('add-expense-form');
-    expenseForm.addEventListener('submit', (e) => {
+  
+  
+  
+ 
+
+     const expenseForm = document.getElementById('add-expense-form');
+      if (expenseForm) {
+      expenseForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
+        const expenseId = 'exp-' + Date.now();
+        const newExpense = {
+            id: expenseId,
+            item: document.getElementById('e-item').value,
+            amount: parseFloat(document.getElementById('e-amount').value),
+            recipient: document.getElementById('e-recipient').value,
+            invoiceUrl: document.getElementById('e-invoice').value || '',
+            date: new Date().toISOString().slice(0, 10),
+            
+            // --- التغيير الجوهري: الحالة الافتراضية ---
+            status: 'pending', // قيد الانتظار
+            verifiedBy: null,
+            verificationDate: null
+        };
+
+        // إضافة للمصروفات
+        if (!project.expenditures) project.expenditures = [];
+        project.expenditures.unshift(newExpense);
+
+        // الحفظ
+        allProjects[projectId] = project;
+        window.saveData('projects', allProjects);
+
+        showMessageBox('تم تسجيل المصروف! بانتظار تأكيد المستلم.', 'info');
+        expenseForm.reset();
+        
+        // تحديث الجدول
+        renderExpensesPreview(project.expenditures);
+    });
+}
+
+// تعديل دالة عرض المصروفات لتظهر رابط التحقق
+function renderExpensesPreview(expenses) {
+    const tbody = document.getElementById('expenses-list-preview');
+    tbody.innerHTML = '';
+    
+    expenses.slice(0, 10).forEach(exp => {
+        const isVerified = exp.status === 'verified';
+        const statusBadge = isVerified 
+            ? '<span style="color:#2ecc71"><i class="fas fa-check-circle"></i> مؤكد</span>' 
+            : '<span style="color:#f39c12"><i class="fas fa-clock"></i> انتظار</span>';
+            
+        // رابط التحقق (Simulated Link)
+        // هذا الرابط سنقوم بإنشاء صفحته في الخطوة التالية
+        const verifyLink = `verify-expense.html?pid=${projectId}&eid=${exp.id}`;
+        
+        const actionBtn = isVerified 
+            ? '-' 
+            : `<button onclick="copyLink('${verifyLink}')" class="button secondary small" style="padding:2px 5px; font-size:0.7em;">نسخ رابط التحقق</button>`;
+
+        tbody.innerHTML += `
+            <tr>
+                <td>${exp.item}</td>
+                <td>${exp.amount.toLocaleString()}</td>
+                <td>${statusBadge}</td>
+                <td>${actionBtn}</td>
+            </tr>
+        `;
+    });
+    
+    if(expenses.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center">لا توجد مصروفات مسجلة.</td></tr>';
+    }
+}
+
+// دالة مساعدة لنسخ الرابط (ضعها خارج الـ EventListeners لتكون Global)
+window.copyLink = function(url) {
+    // لأننا في بيئة محلية، سنقوم بفتح الرابط مباشرة للتسهيل عليك بدلاً من نسخه
+    // في الواقع يتم نسخه وإرساله عبر الواتساب للتاجر
+    if(confirm('في الواقع، يتم إرسال هذا الرابط للتاجر ليؤكد الاستلام.\n\nهل تريد فتح صفحة التحقق الآن (كمحاكاة)؟')) {
+        window.open(url, '_blank');
+    }
+};
         const newExpense = {
             id: Date.now(),
             item: document.getElementById('e-item').value,
@@ -121,4 +200,4 @@ document.addEventListener('DOMContentLoaded', () => {
             tbody.innerHTML = '<tr><td colspan="3" style="text-align:center">لا توجد مصروفات مسجلة.</td></tr>';
         }
     }
-});
+           

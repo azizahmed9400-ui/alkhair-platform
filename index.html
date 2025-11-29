@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة الخير للمشاريع المجتمعية</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -20,48 +23,82 @@
                 <li><a href="index.html#about-platform">عن المنصة</a></li>
                 <li><a href="projects.html">المشاريع</a></li>
                 <li><a href="news.html">الأخبار</a></li>
+                <li><a href="education.html">الأكاديمية</a></li>
                 <li><a href="team.html">الكادر المسؤول</a></li>
                 <li><a href="donors.html">شكر المتبرعين</a></li>
-                <li><a href="education.html" class="active">الأكاديمية</a></li>
                 <li><a href="index.html#contact">اتصل بنا</a></li>
                 <li><a href="add-project.html">إضافة مشروع</a></li>
-                <li><a href="admin.html">لوحة التحكم</a></li>
-            </ul>
+                </ul>
         </nav>
+
         <div class="hero">
-            <h1>شارك في بناء مجتمعك</h1>
-            <p>منصة الخير: نبني معًا مستقبلًا أفضل من خلال دعم المشاريع التنموية والخيرية بشفافية ومصداقية.</p>
-            <a href="projects.html" class="button primary">استكشف المشاريع</a>
+            <h1>شارك في بناء مستقبل مشرق</h1>
+            <p>منصة الخير: جسرك الآمن لدعم المشاريع التنموية المستدامة في اليمن بشفافية تامة ومصداقية.</p>
+            <div style="margin-top: 30px;">
+                <a href="projects.html" class="button primary" style="margin-left: 10px;">تبرع الآن</a>
+                <a href="#about-platform" class="button secondary" style="color: white; border-color: white;">تعرف علينا</a>
+            </div>
         </div>
     </header>
-
-    <main>
-        <section id="about-platform" class="section-container">
+       <main>
+        <section class="section-container" style="margin-top: -60px; position: relative; z-index: 10; width: 90%; margin-left: auto; margin-right: auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center;">
+                <div class="stat-card" style="border:none;">
+                    <i class="fas fa-hand-holding-heart fa-2x" style="color: var(--primary-color); margin-bottom:10px;"></i>
+                    <h3 style="font-size: 1.1em; color: #666; margin: 0;">إجمالي التبرعات</h3>
+                    <p id="donated-amount" style="font-size:1.8em; font-weight:bold; color:var(--text-color); margin: 5px 0;">0 ريال</p>
+                </div>
+                <div class="stat-card" style="border:none;">
+                    <i class="fas fa-project-diagram fa-2x" style="color: var(--secondary-color); margin-bottom:10px;"></i>
+                    <h3 style="font-size: 1.1em; color: #666; margin: 0;">مشاريع ممولة</h3>
+                    <p id="projects-count" style="font-size:1.8em; font-weight:bold; color:var(--text-color); margin: 5px 0;">0</p>
+                </div>
+                <div class="stat-card" style="border:none;">
+                    <i class="fas fa-users fa-2x" style="color: var(--primary-color); margin-bottom:10px;"></i>
+                    <h3 style="font-size: 1.1em; color: #666; margin: 0;">متبرع كريم</h3>
+                    <p id="donors-count" style="font-size:1.8em; font-weight:bold; color:var(--text-color); margin: 5px 0;">0</p>
+                </div>
+            </div>
+        </section>
+        
+   
             <h2>عن المنصة</h2>
-            <p>منصة الخير هي مبادرة غير ربحية تهدف إلى ربط المتبرعين بالمشاريع الخيرية والتنموية الموثوقة في جميع أنحاء اليمن. نحن نؤمن بقوة العمل الجماعي لإحداث فرق حقيقي في حياة الأفراد والمجتمعات المحتاجة.</p>
-            <p>نعمل بشفافية كاملة، حيث يمكنك تتبع تقدم المشاريع التي تبرعت لها ورؤية الأثر الإيجابي لتبرعاتك، مع ضمان أعلى مستويات المصداقية في تتبع كل ريال يتم إنفاقه.</p>
+            <div style="background: white; padding: 20px; border-radius: 10px; line-height: 1.8;">
+                <p>منصة الخير هي مبادرة غير ربحية تهدف إلى ربط المتبرعين بالمشاريع الخيرية والتنموية الموثوقة في جميع أنحاء اليمن. نحن نؤمن بقوة العمل الجماعي لإحداث فرق حقيقي في حياة الأفراد والمجتمعات المحتاجة.</p>
+                <p>نعمل بشفافية كاملة، حيث يمكنك تتبع تقدم المشاريع التي تبرعت لها ورؤية الأثر الإيجابي لتبرعاتك، مع ضمان أعلى مستويات المصداقية في تتبع كل ريال يتم إنفاقه.</p>
+            </div>
         </section>
 
         <section class="section-container">
             <h2>أبرز المشاريع</h2>
-            <div class="projects-grid">
+            <div class="projects-grid" id="featured-projects-grid">
                 </div>
-            <div class="view-all-button">
+            <div class="view-all-button" style="text-align: center; margin-top: 20px;">
                 <a href="projects.html" class="button secondary">عرض جميع المشاريع</a>
             </div>
         </section>
+        
+        <section class="section-container" style="background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; border-radius: 20px; padding: 40px; text-align: center;">
+            <h2 style="color: white; border-bottom: none;">كن شريكاً في الخير</h2>
+            <p style="color: rgba(255,255,255,0.95); font-size: 1.1em; max-width: 600px; margin: 0 auto 30px;">
+                لا يقتصر العطاء على المال. يمكنك المساهمة بجهدك، وقتك، أو خبرتك في إدارة المشاريع وتوثيقها.
+            </p>
+            <a href="#" class="button secondary" style="background: white; color: var(--primary-color); border: none; padding: 10px 30px;">سجل كمتطوع الآن</a>
+        </section>
+
         <section id="latest-news" class="section-container">
             <h2><i class="fas fa-newspaper"></i> آخر الأخبار والتحديثات</h2>
-             <p>ابقَ على اطلاع بأحدث إنجازاتنا وقصص النجاح التي تحققت بفضل دعمكم.</p>
+             <p style="text-align: center; color: #666;">ابقَ على اطلاع بأحدث إنجازاتنا وقصص النجاح التي تحققت بفضل دعمكم.</p>
             <div class="news-grid-home" id="latest-news-grid">
-           </div>
-            <div class="view-all-button">
-            <a href="news.html" class="button secondary">عرض جميع الأخبار</a>
+                </div>
+            <div class="view-all-button" style="text-align: center; margin-top: 20px;">
+                <a href="news.html" class="button secondary">عرض جميع الأخبار</a>
           </div> 
          </section>
+
         <section class="section-container">
             <h2>شكر خاص للمتبرعين</h2>
-            <p>بفضل كرمكم، استطعنا تحقيق الكثير. إليكم قائمة بأحدث المتبرعين الذين أحدثوا فرقاً.</p>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">بفضل كرمكم، استطعنا تحقيق الكثير. إليكم قائمة بأحدث المتبرعين.</p>
             <table>
                 <thead>
                     <tr>
@@ -71,22 +108,22 @@
                         <th>التاريخ</th>
                     </tr>
                 </thead>
-                <tbody id="home-donors-table">
+                <tbody id="latest-donors-table-body">
                     </tbody>
             </table>
-            <div class="view-all-button">
+            <div class="view-all-button" style="text-align: center; margin-top: 20px;">
                 <a href="donors.html" class="button secondary">عرض جميع المتبرعين</a>
             </div>
         </section>
 
         <section id="contact" class="section-container">
             <h2><i class="fas fa-envelope"></i> اتصل بنا</h2>
-            <p>لأي استفسارات أو مقترحات، لا تتردد في التواصل معنا.</p>
-            <form id="contact-form">
+            <p style="text-align: center; margin-bottom: 20px;">لأي استفسارات أو مقترحات، لا تتردد في التواصل معنا.</p>
+            <form id="contact-form" style="max-width: 600px; margin: 0 auto;">
                 <input type="text" placeholder="اسمك الكامل" required>
                 <input type="email" placeholder="بريدك الإلكتروني" required>
                 <textarea placeholder="رسالتك" rows="5" required></textarea>
-                <button type="submit" class="button primary">
+                <button type="submit" class="button primary" style="width: 100%;">
                     <i class="fas fa-paper-plane"></i> إرسال الرسالة
                 </button>
             </form>
@@ -95,18 +132,20 @@
 
     <footer>
         <p>&copy; 2025 منصة الخير. جميع الحقوق محفوظة <i class="fas fa-heart" style="color: #e74c3c;"></i></p>
-        <div class="social-icons" style="margin-top: 10px;">
-            <i class="fab fa-facebook fa-lg" style="margin: 0 10px; cursor: pointer; color: #fff;"></i>
-            <i class="fab fa-twitter fa-lg" style="margin: 0 10px; cursor: pointer; color: #fff;"></i>
-            <i class="fab fa-instagram fa-lg" style="margin: 0 10px; cursor: pointer; color: #fff;"></i>
+        <div class="social-icons" style="margin-top: 15px;">
+            <i class="fab fa-facebook fa-lg" style="margin: 0 10px; cursor: pointer;"></i>
+            <i class="fab fa-twitter fa-lg" style="margin: 0 10px; cursor: pointer;"></i>
+            <i class="fab fa-instagram fa-lg" style="margin: 0 10px; cursor: pointer;"></i>
         </div>
+        <footer>
+    <p>&copy; 2025 منصة الخير. جميع الحقوق محفوظة.</p>
+    <a href="admin.html" style="font-size:0.8em; color:#555; text-decoration:none; opacity:0.5;">دخول الإدارة</a>
+</footer>
     </footer>
 
-<script src="js/data.js"></script>
-<script src="js/message-box.js"></script>
-<script src="js/script.js"></script>
-<script src="js/home-logic.js"></script> </body>
-</html>
-
+    <script src="js/data.js"></script>
+    <script src="js/message-box.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/home-logic.js"></script> 
 </body>
 </html>

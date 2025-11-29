@@ -146,134 +146,124 @@
             <p>املأ البيانات بدقة لنضمن الشفافية ونكسب ثقة الشركاء (المتبرعين).</p>
         </div>
     </header>
-
-    <main>
-        <section class="section-container" id="wizard-container">
+      <main>
+        <section class="section-container" style="max-width: 800px;">
+            
             <div class="wizard-progress">
-                <div class="step-indicator active" data-step="1">
-                    <div class="step-circle">1</div>
-                    <div class="step-label">الأساسيات</div>
-                </div>
-                <div class="step-indicator" data-step="2">
-                    <div class="step-circle">2</div>
-                    <div class="step-label">التفاصيل</div>
-                </div>
-                <div class="step-indicator" data-step="3">
-                    <div class="step-circle">3</div>
-                    <div class="step-label">الميزانية</div>
-                </div>
-                <div class="step-indicator" data-step="4">
-                    <div class="step-circle">4</div>
-                    <div class="step-label">الفريق</div>
-                </div>
+                <div class="step-indicator active" data-step="1">1</div>
+                <div class="step-indicator" data-step="2">2</div>
+                <div class="step-indicator" data-step="3">3</div>
+                <div class="step-indicator" data-step="4"><i class="fas fa-check"></i></div>
             </div>
 
             <form id="project-wizard-form">
                 
-                <div class="form-step active" id="step-1">
-                    <h3>1. معلومات المشروع الأساسية</h3>
+                <div class="step-content active" id="step-1">
+                    <h2 style="text-align: center;">الخطوة 1: المعلومات الأساسية</h2>
                     <div class="form-group">
-                        <label>عنوان المشروع *</label>
-                        <input type="text" id="p-title" required placeholder="مثال: مشروع حفر بئر ارتوازي في قرية...">
+                        <label>عنوان المشروع</label>
+                        <input type="text" id="p-title" placeholder="مثال: رصف طريق حي الروضة" required>
                     </div>
+                    
                     <div class="form-group">
-                        <label>الشعار المختصر (Tagline) *</label>
-                        <input type="text" id="p-tagline" required placeholder="جملة واحدة تظهر تحت العنوان تلخص المشروع">
+                        <label>شعار تسويقي قصير (Tagline)</label>
+                        <input type="text" id="p-tagline" placeholder="جملة واحدة تصف المشروع وتجذب الانتباه" required>
                     </div>
+
                     <div class="form-group">
-                        <label>الفئة *</label>
-                        <select id="p-category" required>
-                            <option value="">اختر الفئة</option>
-                            <option value="بنية تحتية">بنية تحتية</option>
-                            <option value="مياه">مياه</option>
-                            <option value="بناء وتعمير">بناء وتعمير</option>
-                            <option value="تعليم">تعليم</option>
-                            <option value="صحة">صحة</option>
-                            <option value="إغاثة">إغاثة</option>
-                            <option value="تمكين">تمكين</option>
+                        <label>الفئة</label>
+                        <select id="p-category">
+                            <option value="infrastructure">بنية تحتية</option>
+                            <option value="education">تعليم</option>
+                            <option value="health">صحة</option>
+                            <option value="water">مياه</option>
+                            <option value="food">غذاء</option>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label>المبلغ المستهدف (ريال) *</label>
-                        <input type="number" id="p-goal" required min="1000">
-                    </div>
-                    <div class="form-group">
-                        <label>صورة الغلاف (رابط URL) *</label>
-                        <input type="url" id="p-image" required placeholder="https://example.com/image.jpg">
-                        <small style="color:#777">يمكنك استخدام هذا الرابط للتجربة: https://placehold.co/800x450/4CAF50/FFFFFF?text=Project+Image</small>
+                        <label>صورة الغلاف (رابط URL)</label>
+                        <input type="url" id="p-image" placeholder="https://example.com/image.jpg" required>
+                        <small style="color: #777;">يمكنك استخدام رابط صورة من الإنترنت حالياً.</small>
                     </div>
                 </div>
 
-                <div class="form-step" id="step-2">
-                    <h3>2. تفاصيل المشروع والموقع</h3>
-                    <div class="form-group">
-                        <label>وصف المشكلة (لماذا نحتاج هذا المشروع؟) *</label>
-                        <textarea id="p-problem" rows="3" required placeholder="اشرح معاناة المستفيدين الحالية..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>وصف الحل (ماذا سنفعل؟) *</label>
-                        <textarea id="p-description" rows="4" required placeholder="تفاصيل التنفيذ الفنية..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>الأثر المتوقع (العائد على المجتمع) *</label>
-                        <textarea id="p-impact" rows="3" required placeholder="كم عدد المستفيدين؟ وما التغيير الذي سيحدث؟"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>الموقع الجغرافي (نص) *</label>
-                        <input type="text" id="p-location" required placeholder="المدينة، الحي، اسم القرية">
-                    </div>
-                    <div class="form-group">
-                        <label>رابط الخريطة (Google Maps Embed) - اختياري</label>
-                        <input type="text" id="p-map" placeholder='الصق كود iframe من خرائط جوجل هنا'>
-                    </div>
-                    <div class="form-group">
-                        <label>المدة المتوقعة للتنفيذ</label>
-                        <input type="text" id="p-duration" placeholder="مثال: 3 أشهر">
-                    </div>
-                </div>
-
-                <div class="form-step" id="step-3">
-                    <h3>3. تفاصيل الميزانية (أين ستذهب الأموال؟)</h3>
-                    <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">الشركاء يثقون بالمشاريع التي توضح تفاصيل الصرف بدقة.</p>
+                <div class="step-content" id="step-2">
+                    <h2 style="text-align: center;">الخطوة 2: قصة المشروع</h2>
                     
-                    <div id="budget-container">
+                    <div class="form-group">
+                        <label>وصف المشكلة</label>
+                        <textarea id="p-problem" rows="3" placeholder="ما هي المشكلة التي يعاني منها المجتمع؟" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>تفاصيل المشروع والحل المقترح</label>
+                        <textarea id="p-description" rows="5" placeholder="اشرح كيف سيقوم مشروعك بحل هذه المشكلة..." required></textarea>
+                    </div>
+
+                    <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label>الموقع</label>
+                            <input type="text" id="p-location" placeholder="المدينة، الحي" required>
                         </div>
-                    <button type="button" class="button secondary small" onclick="addBudgetRow()">+ أضف بند تكلفة</button>
-                    
-                    <div style="margin-top: 20px; font-weight: bold; background: #e8f5e9; padding: 10px; border-radius: 5px;">
-                         الإجمالي التقديري من البنود: <span id="budget-total-calc">0</span> ريال
+                        <div class="form-group">
+                            <label>المدة المتوقعة</label>
+                            <input type="text" id="p-duration" placeholder="مثال: 3 أشهر" required>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-step" id="step-4">
-                    <h3>4. فريق الإشراف والتنفيذ</h3>
-                    <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">من سيقوم بالإشراف على المشروع؟ (لتعزيز المصداقية)</p>
+                <div class="step-content" id="step-3">
+                    <h2 style="text-align: center;">الخطوة 3: الميزانية والفريق</h2>
                     
-                    <div id="team-container">
-                        </div>
-                    <button type="button" class="button secondary small" onclick="addTeamRow()">+ أضف عضو فريق</button>
+                    <div class="form-group">
+                        <label>هدف التمويل الكلي (ريال يمني)</label>
+                        <input type="number" id="p-goal" placeholder="500000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>بنود الميزانية (أين ستذهب الأموال؟)</label>
+                        <div id="budget-container">
+                            </div>
+                        <button type="button" class="add-row-btn" onclick="addBudgetRow()">+ إضافة بند</button>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>فريق العمل</label>
+                        <div id="team-container">
+                            </div>
+                        <button type="button" class="add-row-btn" onclick="addTeamRow()">+ إضافة عضو</button>
+                    </div>
+                </div>
+
+                <div class="step-content" id="step-4">
+                    <div style="text-align: center; padding: 30px;">
+                        <i class="fas fa-check-circle" style="font-size: 4em; color: var(--primary-color); margin-bottom: 20px;"></i>
+                        <h2>جاهز للإطلاق!</h2>
+                        <p>لقد قمت بإدخال كافة المعلومات المطلوبة.</p>
+                        <p style="color: #666;">اضغط على "إطلاق المشروع" ليتم حفظه وعرضه في صفحة المشاريع.</p>
+                    </div>
                 </div>
 
                 <div class="wizard-buttons">
                     <button type="button" id="prev-btn" class="button secondary" style="visibility: hidden;">السابق</button>
-                    <button type="button" id="next-btn" class="button primary">التالي: التفاصيل</button>
-                    <button type="submit" id="submit-btn" class="button primary" style="display: none;">حفظ ونشر المشروع</button>
+                    <button type="button" id="next-btn" class="button primary">التالي</button>
+                    <button type="submit" id="submit-btn" class="button primary" style="display: none;">إطلاق المشروع</button>
                 </div>
-            </form>
 
-            <div id="success-message">
-                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
-                <h2>تم تقديم المشروع بنجاح!</h2>
+            </form>
+            
+            <div id="success-message" style="display: none; text-align: center; padding: 40px;">
+                <h2 style="color: var(--success-color);">تم إضافة المشروع بنجاح! 🎉</h2>
                 <p>شكراً لمبادرتك. تم حفظ مشروعك في النظام وهو الآن متاح للمعاينة.</p>
                 <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
-                    <a id="go-to-manage-btn" href="#" class="button primary" style="width: 100%; max-width: 300px;">إدارة مشروعي الآن</a>
-                    
-                    <a href="projects.html" class="button secondary" style="width: 100%; max-width: 300px;">الذهاب لصفحة المشاريع العامة</a>
+                    <a href="projects.html" class="button primary" style="width: 100%; max-width: 300px;">الذهاب لصفحة المشاريع</a>
                 </div>
             </div>
 
         </section>
     </main>
+
 
     <footer>
         <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
@@ -308,5 +298,9 @@
 </body>
 </html>
           
- </body>
+<script src="js/data.js"></script>
+    <script src="js/message-box.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/add-project-logic.js"></script>
+</body>
 </html>

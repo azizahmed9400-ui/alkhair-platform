@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إضافة خبر جديد | منصة الخير</title>
+    <title>إضافة خبر أو قصة نجاح | منصة الخير</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -12,97 +14,119 @@
             <div class="logo">
                 <a href="index.html">منصة الخير</a>
             </div>
-            <ul>
-                <li><a href="index.html#about-platform">عن المنصة</a></li>
-                <li><a href="projects.html">المشاريع</a></li>
-                <li><a href="news.html">الأخبار</a></li>
-                <li><a href="team.html">الكادر المسؤول</a></li>
-                <li><a href="donors.html">شكر المتبرعين</a></li>
-                <li><a href="index.html#contact">اتصل بنا</a></li>
-                <li><a href="add-project.html">إضافة مشروع</a></li>
-                <li><a href="add-news.html" class="active">إضافة خبر</a></li>
+            <button class="menu-toggle" id="menu-toggle-btn"><i class="fas fa-bars"></i></button>
+            <ul id="main-menu-list">
+                <li><a href="admin.html">لوحة التحكم</a></li>
+                <li><a href="news.html">معاينة الأخبار</a></li>
             </ul>
         </nav>
-        <div class="page-hero">
-            <h1>إضافة خبر أو تحديث جديد</h1>
-            <p>املأ النموذج لنشر تحديثات وإنجازات المنصة للجمهور.</p>
-        </div>
     </header>
 
     <main>
-        <section class="add-project-section section-container">
-            <h2>تفاصيل الخبر</h2>
-            <form id="add-news-form" class="form-container">
-                <label for="news-title">عنوان الخبر:</label>
-                <input type="text" id="news-title" name="title" required>
+        <div class="page-hero" style="padding: 40px 20px; margin-bottom: 30px;">
+            <h1>انشر الأمل</h1>
+            <p>شارك العالم قصص النجاح وأخبار مشاريعنا أولاً بأول.</p>
+        </div>
 
-                <label for="news-author">الناشر (اسم المسؤول):</label>
-                <input type="text" id="news-author" name="author" value="فريق التحرير" required>
-
-                <label for="news-summary">ملخص قصير للخبر (يظهر في البطاقة):</label>
-                <textarea id="news-summary" name="summary" rows="3" required></textarea>
-
-                <label for="news-content">محتوى الخبر كاملاً:</label>
-                <textarea id="news-content" name="content" rows="8" required></textarea>
-
-                <label for="news-image-url">رابط صورة الخبر (URL):</label>
-                <input type="url" id="news-image-url" name="imageUrl" placeholder="مثال: https://placehold.co/800x450/..." required>
+        <section class="section-container" style="max-width: 800px;">
+            <form id="add-news-form" class="form-container" style="background: white; padding: 40px; border-radius: 15px; box-shadow: var(--shadow-md);">
                 
-                <button type="submit" class="button primary">
+                <h2 style="text-align: center; margin-bottom: 30px;">بيانات المنشور الجديد</h2>
+
+                <div class="form-group">
+                    <label>عنوان الخبر / القصة</label>
+                    <input type="text" id="news-title" placeholder="مثال: قصة الطفلة أمل وعودة الحياة للحي..." required>
+                </div>
+
+                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label>التصنيف</label>
+                        <select id="news-category">
+                            <option value="story">قصة نجاح (Story)</option>
+                            <option value="news">خبر عاجل (News)</option>
+                            <option value="report">تقرير إنجاز</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الكاتب / المصدر</label>
+                        <input type="text" id="news-author" placeholder="مثال: اللجنة الإعلامية" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>صورة الخبر (رابط URL)</label>
+                    <input type="url" id="news-image" placeholder="https://example.com/image.jpg" required>
+                </div>
+
+                <div class="form-group">
+                    <label>ملخص قصير (يظهر في البطاقة الخارجية)</label>
+                    <textarea id="news-summary" rows="2" maxlength="150" placeholder="اكتب ملخصاً تشويقياً لا يتجاوز 150 حرفاً..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>تفاصيل الخبر كاملة</label>
+                    <textarea id="news-content" rows="8" placeholder="اكتب تفاصيل القصة كاملة هنا..." required></textarea>
+                </div>
+
+                <button type="submit" class="button primary" style="width: 100%; font-size: 1.1em; padding: 12px;">
                     <i class="fas fa-paper-plane"></i> نشر الخبر الآن
                 </button>
+
             </form>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 منصة الخير. جميع الحقوق محفوظة.</p>
+        <p>&copy; 2025 منصة الخير. جميع الحقوق محفوظة.</p>
     </footer>
 
     <script src="js/data.js"></script>
     <script src="js/message-box.js"></script>
-    <script src="js/script.js"></script> <script>
+    <script src="js/script.js"></script>
+    
+    <script>
+        /* منطق إضافة الخبر (مدمج للتسهيل) */
         document.addEventListener('DOMContentLoaded', () => {
             const addNewsForm = document.getElementById('add-news-form');
-
+            
             if (addNewsForm) {
                 addNewsForm.addEventListener('submit', function(e) {
                     e.preventDefault();
 
-                    // 1. جمع البيانات من النموذج
-                    const formData = new FormData(addNewsForm);
-                    const newsData = {};
-                    formData.forEach((value, key) => {
-                        newsData[key] = value.trim();
-                    });
-
-                    // 2. إنشاء كائن الخبر الجديد
+                    // 1. جمع البيانات
                     const newNewsId = 'news-' + Date.now();
                     const newNews = {
                         id: newNewsId,
-                        ...newsData,
-                        date: new Date().toISOString().slice(0, 10), // تاريخ اليوم
-                        comments: [] // قائمة تعليقات فارغة
+                        title: document.getElementById('news-title').value,
+                        category: document.getElementById('news-category').value,
+                        author: document.getElementById('news-author').value,
+                        imageUrl: document.getElementById('news-image').value,
+                        summary: document.getElementById('news-summary').value,
+                        content: document.getElementById('news-content').value,
+                        date: new Date().toLocaleDateString('ar-YE'), // تاريخ اليوم بتنسيق عربي
+                        comments: [] 
                     };
                     
-                    // 3. سحب جميع الأخبار الموجودة من LocalStorage
-                    // سنعتمد على أن دالة getStoredData موجودة في ملف script.js
-                    const allNews = window.getStoredData('news', window.newsData); // استخدم newsData العالمية
-                    
-                    // 4. إضافة الخبر الجديد إلى الكائن
-                    allNews[newNews.id] = newNews;
-
-                    // 5. حفظ الكائن المحدث بالكامل مرة أخرى إلى LocalStorage
+                    // 2. الحفظ في LocalStorage
+                    const allNews = window.getStoredData('news', window.newsData || {});
+                    allNews[newNewsId] = newNews;
                     window.saveData('news', allNews); 
 
-                    // 6. عرض رسالة النجاح ومسح النموذج
+                    // 3. رسالة النجاح
                     if (typeof showMessageBox === 'function') {
-                        showMessageBox('✅ تم إضافة الخبر بنجاح وحفظه في LocalStorage!', 'success');
+                        showMessageBox('✅ تم نشر الخبر بنجاح!', 'success');
                     } else {
-                        alert('تم إضافة الخبر بنجاح!');
+                        alert('تم النشر بنجاح!');
                     }
                     
-                    addNewsForm.reset(); 
+                    addNewsForm.reset();
+                    
+                    // خيار للمستخدم: الذهاب لصفحة الأخبار لرؤية النتيجة
+                    setTimeout(() => {
+                        if(confirm('تم النشر. هل تريد الانتقال لصفحة الأخبار لمعاينته؟')) {
+                            window.location.href = 'news.html';
+                        }
+                    }, 1000);
                 });
             }
         });
